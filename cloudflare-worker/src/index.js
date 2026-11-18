@@ -237,6 +237,22 @@ async function route(request, env, ctx) {
       if (!/^image\/(jpeg|png|webp)$/.test(b.mime ?? 'image/jpeg') || typeof b.image_base64 !== 'string' || b.image_base64.length < 20) throw new HttpError(422, 'Invalid image');
       return json({ text: await transcribe(env, b.image_base64, b.mime ?? 'image/jpeg', b.kind ?? '') }, 200, env);
     }
+    if (path === '/v1/admin/wa-state/get' && method === 'POST') {
+      const b = await body(request);
+      const keys = (Array.isArray(b.keys) ? b.keys : []).slice(0, 500).map(String);
+      const rows = keys.length ? await query('SELECT key, value FROM wa_state WHERE key = ANY($1::text[])', [keys]) : [];
+      return json({ values: Object.fromEntries(rows.map((r) => [r.key, r.value])) }, 200, env);
+    }
+    if (path === '/v1/admin/wa-state/set' && method === 'POST') {
+      const b = await body(request);
+      const entries = Object.entries(b.entries && typeof b.entries === 'object' ? b.entries : {});
+      if (entries.length > 500) throw new HttpError(422, 'At most 500 entries per request');
+      const statements = entries.map(([key, value]) => (value === null
+        ? ['DELETE FROM wa_state WHERE key = $1', [key]]
+        : ['INSERT INTO wa_state (key, value, updated_at) VALUES ($1, $2, now()) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()', [key, String(value)]]));
+      if (statements.length) await transaction(env, statements);
+      return json({ stored: statements.length }, 200, env);
+    }
     if (path === '/v1/admin/keys' && method === 'POST') {
       const b = await body(request);
       if (!b.owner || String(b.owner).length < 2) throw new HttpError(422, 'owner is required');
@@ -283,6 +299,10 @@ async function route(request, env, ctx) {
 }
 
 export default {
+  // Cron trigger: keeps a free-tier listener host awake by calling its health address.
+  async scheduled(event, env, ctx) {
+    if (env.LISTENER_URL) ctx.waitUntil(fetch(env.LISTENER_URL, { headers: { 'User-Agent': 'ictkb-keepalive' } }).catch(() => {}));
+  },
   async fetch(request, env, ctx) {
     try {
       return await route(request, env, ctx);

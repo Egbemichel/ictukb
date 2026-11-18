@@ -11,6 +11,7 @@
     "start": "node src/index.js",
     "link": "node src/index.js --link",
     "groups": "node src/index.js --groups",
+    "logout": "node src/index.js --logout",
     "test": "node --test"
   },
   "dependencies": {

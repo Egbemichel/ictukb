@@ -1,0 +1,18 @@
+# Render blueprint for the WhatsApp listener (free web service, no disk needed).
+# Render dashboard: New > Blueprint > select this repository; enter ADMIN_TOKEN when asked.
+services:
+  - type: web
+    name: ictkb-whatsapp
+    runtime: docker
+    dockerfilePath: docker/Dockerfile.whatsapp
+    dockerContext: .
+    plan: free
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: KB_API_URL
+        value: https://ictkb-api.ictkb-api-worker.workers.dev
+      - key: AUTH_STORE
+        value: remote
+      - key: ADMIN_TOKEN
+        sync: false

@@ -7,7 +7,10 @@ RUN npm ci --omit=dev
 COPY whatsapp-listener/src ./src
 COPY whatsapp-listener/groups.json ./groups.json
 
-ENV AUTH_DIR=/data/auth STATE_FILE=/data/state/state.json
-VOLUME ["/data"]
+# The WhatsApp session and the post bookkeeping are stored in the knowledge base database
+# (through the Worker's admin API), so the container needs no disk.
+ENV AUTH_STORE=remote PORT=8080 NODE_ENV=production
+EXPOSE 8080
+USER node
 
 CMD ["node", "src/index.js"]

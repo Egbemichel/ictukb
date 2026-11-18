@@ -64,7 +64,7 @@ python eval/run_eval.py
 
 ## WhatsApp listener
 
-It needs an always-on machine because it keeps a WhatsApp session open; a Worker cannot do that. Point it at the Worker: `KB_API_URL=https://ictkb-api.ictkb-api-worker.workers.dev` and `ADMIN_TOKEN`. See `whatsapp-listener/README.md`.
+The listener keeps a WhatsApp connection open, so it cannot run on a Worker. Its session is stored in Neon (through the Worker), which lets it run on a free host that restarts or sleeps: Render or a Hugging Face Space. The Worker's cron trigger pings the host every 5 minutes to keep it awake (`LISTENER_URL` in `wrangler.toml`). See `whatsapp-listener/README.md` for linking and hosting steps.
 
 ## Enabling the scheduled workflows
 

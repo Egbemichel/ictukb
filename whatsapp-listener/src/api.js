@@ -30,6 +30,8 @@ export function makeApi(base, token) {
   return {
     post: (note) => call(base, token, 'POST', '/v1/admin/notes', note),
     remove: (docId) => call(base, token, 'DELETE', `/v1/admin/notes/${encodeURIComponent(docId)}`),
+    stateGet: (keys) => call(base, token, 'POST', '/v1/admin/wa-state/get', { keys }).then((r) => r.values ?? {}),
+    stateSet: (entries) => call(base, token, 'POST', '/v1/admin/wa-state/set', { entries }),
     transcribe: (buffer, mime, kind) =>
       call(base, token, 'POST', '/v1/admin/transcribe', {
         image_base64: buffer.toString('base64'),

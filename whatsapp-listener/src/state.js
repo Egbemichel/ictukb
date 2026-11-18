@@ -1,26 +1,50 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-// Small JSON store that remembers which WhatsApp message produced which post, so that edits,
-// deletions and re-deliveries are handled. It holds no message text of other kinds than the
-// menu entries of the current days.
+// Remembers which WhatsApp message produced which post, so that edits, deletions and re-deliveries
+// are handled. It lives in a local file, or in the knowledge base database when a remote store is given
+// (hosts without a disk). It holds only message ids, post ids and the menu lines of the current days.
 export class State {
-  constructor(file) {
+  constructor(file, remote = null) {
     this.file = file;
+    this.remote = remote; // { api, key }
     this.data = { posts: {}, menus: {} };
-    if (file && fs.existsSync(file)) {
-      try {
-        this.data = { posts: {}, menus: {}, ...JSON.parse(fs.readFileSync(file, 'utf8')) };
-      } catch {
-        // a corrupt file is replaced by an empty store
-      }
+    this.timer = null;
+    if (file && fs.existsSync(file)) this.#adopt(fs.readFileSync(file, 'utf8'));
+  }
+
+  #adopt(text) {
+    try {
+      this.data = { posts: {}, menus: {}, ...JSON.parse(text) };
+    } catch {
+      // a corrupt store is replaced by an empty one
     }
   }
 
+  async load() {
+    if (!this.remote) return this;
+    const values = await this.remote.api.stateGet([this.remote.key]);
+    if (values[this.remote.key]) this.#adopt(values[this.remote.key]);
+    return this;
+  }
+
   save() {
-    if (!this.file) return;
-    fs.mkdirSync(path.dirname(this.file), { recursive: true });
-    fs.writeFileSync(this.file, JSON.stringify(this.data));
+    if (this.file) {
+      fs.mkdirSync(path.dirname(this.file), { recursive: true });
+      fs.writeFileSync(this.file, JSON.stringify(this.data));
+    }
+    if (this.remote && !this.timer) {
+      this.timer = setTimeout(() => {
+        this.timer = null;
+        this.flush().catch(() => {});
+      }, 1000);
+    }
+  }
+
+  async flush() {
+    if (!this.remote) return;
+    if (this.timer) { clearTimeout(this.timer); this.timer = null; }
+    await this.remote.api.stateSet({ [this.remote.key]: JSON.stringify(this.data) });
   }
 
   prune(todayIso, keepDays = 3) {

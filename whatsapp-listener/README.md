@@ -18,25 +18,36 @@ A small Node service that watches the official, admin-only WhatsApp groups liste
 - Voice notes, stickers, videos without captions and documents are ignored.
 - Only the message id and the id of the resulting post are stored locally (`state/`), plus the current days' menu lines.
 
+## Where the session lives
+
+The linked-device session and the post bookkeeping are stored in the knowledge base database (table `wa_state`), reached through the Worker's admin endpoints `/v1/admin/wa-state/get` and `/set`. The host needs only `KB_API_URL` and `ADMIN_TOKEN`; it never holds the database password and needs no disk. A restart or a move to another host reconnects without a new pairing code. `AUTH_STORE=file` keeps the session in `./auth` instead (local use).
+
+Only one process may use the session at a time. If a second instance connects, WhatsApp closes the first with "connection replaced"; the older instance logs it and exits.
+
 ## Setup
 
-1. The API must be reachable by the listener: use the Cloudflare Worker (`KB_API_URL=https://ictkb-api.ictkb-api-worker.workers.dev`, `ADMIN_TOKEN` as set in the Worker). Photos need the `COHERE_API_KEY` secret on the Worker.
-2. In `whatsapp-listener/`: `npm install`.
-3. Link the number (once). The phone number is read from the environment and is never stored in the repository:
+1. The API is the Cloudflare Worker (`KB_API_URL=https://ictkb-api.ictkb-api-worker.workers.dev`); `ADMIN_TOKEN` is the Worker's admin token.
+2. Link the number once (the phone number is read from the environment and is never stored in the repository):
 
    ```bash
-   PAIRING_PHONE=<number with country code, digits only> KB_API_URL=http://localhost:8000 ADMIN_TOKEN=<token> npm run link
+   cd whatsapp-listener && npm install
+   KB_API_URL=... ADMIN_TOKEN=... PAIRING_PHONE=<country code and number, digits only> npm run link
    ```
 
    A code appears. On the phone: WhatsApp, Settings, Linked devices, Link a device, "Link with phone number instead", enter the code. When the log says "linked", stop the process.
-4. Check the routing: `npm run groups` prints every group of the number, whether it is admin-only, and which route it matches. Fix `groups.json` if a route matches no group.
-5. Run: `KB_API_URL=... ADMIN_TOKEN=... npm start`. Keep it running on an always-on machine (see the Docker service below).
+3. Check the routing: `npm run groups` prints every group of the number, how many admins it has, and which route it matches.
+4. Run it: `KB_API_URL=... ADMIN_TOKEN=... npm start`. It serves `GET /healthz` on `$PORT` (default 8080).
+5. `npm run logout` unlinks the device. If WhatsApp logs the device out (for example after about two weeks without the phone opening WhatsApp), run `npm run link` again.
 
-The linked session is stored in `auth/`; it is a credential, is git-ignored, and must be kept private. If the phone does not open WhatsApp for about two weeks, WhatsApp unlinks the device and the listener logs "Logged out"; run `npm run link` again.
+## Free hosting without your own machine
 
-## Docker
+No free host is guaranteed to stay up. The listener is built to tolerate restarts, because its state is in Neon. Two options that need no payment card:
 
-`docker compose -f docker/docker-compose.yml --profile whatsapp up -d whatsapp` starts the listener with `auth/` and `state/` on a volume. Link the number first with `docker compose run --rm -e PAIRING_PHONE=... whatsapp npm run link`.
+**Render (free web service).** Render dashboard, New, Blueprint, choose this repository (`render.yaml` is read automatically) and enter `ADMIN_TOKEN`. The free instance sleeps after 15 minutes without a request, so the Cloudflare Worker pings it every 5 minutes: set `LISTENER_URL` in `cloudflare-worker/wrangler.toml` to the Render address with `/healthz` (for example `https://ictkb-whatsapp.onrender.com/healthz`) and run `wrangler deploy`.
+
+**Hugging Face Space (Docker).** Create a Space with the Docker SDK, add the repository files that `docker/Dockerfile.whatsapp` copies (`whatsapp-listener/` and the Dockerfile as `Dockerfile`), add a README header with `sdk: docker` and `app_port: 8080`, and set the secrets `ADMIN_TOKEN` and `KB_API_URL`. Free Spaces sleep after 48 hours without visits; the same keep-alive ping prevents it.
+
+Cloud hosts use datacenter IP addresses, which WhatsApp is more likely to flag than a home connection; keep the listener passive (it never sends messages).
 
 ## Risks
 
@@ -44,4 +55,4 @@ Baileys is not an official WhatsApp client. WhatsApp can ban a number used with 
 
 ## Tests
 
-`npm test` runs the handler tests (routing, redaction, menu merging, edits, deletions, photos).
+`npm test` runs the handler tests (routing, redaction, menu merging, edits, deletions, photos) and the session store tests.

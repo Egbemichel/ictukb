@@ -58,12 +58,10 @@ services:
     environment:
       KB_API_URL: http://api:8000
       ADMIN_TOKEN: ${ADMIN_TOKEN}
-    volumes:
-      - whatsapp:/data
+      AUTH_STORE: remote
     depends_on:
       - api
     restart: unless-stopped
 
 volumes:
   dbdata:
-  whatsapp:
