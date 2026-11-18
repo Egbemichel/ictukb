@@ -17,4 +17,4 @@ CORS_ORIGINS = "*"
 EMBEDDING_MODEL = "embed-multilingual-v3.0"
 
 # Pings the WhatsApp listener host every 5 minutes when LISTENER_URL is set (keeps free hosts awake)
-LISTENER_URL = ""
+LISTENER_URL = "https://ictkb-whatsapp.onrender.com/healthz"
