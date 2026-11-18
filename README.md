@@ -20,7 +20,8 @@ The design is described in [docs/architecture.md](docs/architecture.md) and the 
 ## Where to start
 
 - Collecting data: read [docs/data-collection-guide.md](docs/data-collection-guide.md) and work through [docs/upload-checklist.md](docs/upload-checklist.md).
-- Building a chatbot: copy [examples/starter-chatbot](examples/starter-chatbot) and request an API key from the maintainers.
+- Building a chatbot: follow the [user manual](docs/user-manual.md) step by step, or copy [examples/starter-chatbot](examples/starter-chatbot); request an API key from the maintainers.
+- Understanding the project: read the [project report](docs/report.md).
 - Operating and deploying: [docs/runbook.md](docs/runbook.md) and [docs/deployment.md](docs/deployment.md).
 - Live API: `https://ictkb-api.ictkb-api-worker.workers.dev` (an API key is required; ask the maintainer).
 - Contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
