@@ -15,8 +15,11 @@ concurrency:
   group: ingest
   cancel-in-progress: false
 
+# Automation switch: runs only when the repository variable ENABLE_AUTOMATION is 'true'
+# (Settings > Secrets and variables > Actions > Variables), after the required secrets are set.
 jobs:
   sheets:
+    if: ${{ vars.ENABLE_AUTOMATION == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:

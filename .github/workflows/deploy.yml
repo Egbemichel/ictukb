@@ -9,8 +9,11 @@ concurrency:
   group: deploy
   cancel-in-progress: false
 
+# Automation switch: runs only when the repository variable ENABLE_AUTOMATION is 'true'
+# (Settings > Secrets and variables > Actions > Variables), after the required secrets are set.
 jobs:
   index:
+    if: ${{ vars.ENABLE_AUTOMATION == 'true' }}
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -31,6 +34,7 @@ jobs:
           ictkb index
 
   worker:
+    if: ${{ vars.ENABLE_AUTOMATION == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

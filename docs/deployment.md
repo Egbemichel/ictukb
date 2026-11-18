@@ -65,3 +65,7 @@ python eval/run_eval.py
 ## WhatsApp listener
 
 It needs an always-on machine because it keeps a WhatsApp session open; a Worker cannot do that. Point it at the Worker: `KB_API_URL=https://ictkb-api.ictkb-api-worker.workers.dev` and `ADMIN_TOKEN`. See `whatsapp-listener/README.md`.
+
+## Enabling the scheduled workflows
+
+The scheduled and deployment workflows (`ingest-daily`, `ingest-live`, `deploy`) are switched off until the repository variable `ENABLE_AUTOMATION` is set to `true` (Settings, Secrets and variables, Actions, Variables). Add the secrets `DATABASE_URL`, `COHERE_API_KEY`, `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` first. The `validate` workflow and the daily `freshness` workflow run without them.
