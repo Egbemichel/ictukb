@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.env
+.env.*
+!.env.example
+
+# Raw collection inbox: binaries live in Cloudinary, never in Git
+incoming/*/*
+!incoming/*/README.md
+
+eval/reports/*
+!eval/reports/.gitkeep
+data/
+.neon
+node_modules/
+
+# WhatsApp listener session (a credential) and local state
+whatsapp-listener/auth/
+whatsapp-listener/state/
+whatsapp-listener/node_modules/
+
+# Documents that must not be published
+content-private/*
+!content-private/README.md

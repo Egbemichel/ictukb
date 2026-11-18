@@ -1,0 +1,18 @@
+{
+  "name": "ictkb-api-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Free Cloudflare Worker serving the ICT University knowledge base API from Neon",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

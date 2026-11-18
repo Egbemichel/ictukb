@@ -1,0 +1,246 @@
+ICTU ERP System
+ICT University Yaoundé
+Student Guide
+How to Complain About Your Results
+Missing marks, wrong marks, grade appeals and other concerns
+Author: Engr Tanwi Nkiamboh
+Academic Year: 2026/2027
+Version: 1.0
+Date: November 17, 2026
+ICT University Yaoundé • ICTU ERP System
+
+Contents
+1 Before You Complain 2
+1.1 Check your results first . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+1.2 What you need . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2 Choosing the Right Kind of Complaint 4
+2.1 Complaints about a course . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.2 General complaints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+3 Filing a Complaint Step by Step 5
+3.1 Open the Complaints page . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.2 Fill in the form . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.3 Filing a general complaint . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+4 What Happens to Your Complaint 8
+4.1 The journey of a complaint . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+4.2 Following your complaint . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+4.3 Replying . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.4 What your lecturer sees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+5 When Your Complaint Is Resolved 11
+5.1 Resolved or closed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+5.2 Appealing once . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+6 On Your Phone 13
+7 Quick Answers 14
+1 ICT University Yaoundé
+
+1 Before You Complain
+A complaint is how you ask the university to look again at a mark or a grade. Every complaint is
+handled inside the ICTU ERP: you file it online, you follow it step by step, and you are told when
+something happens. Nobody needs to queue at an office.
+1.1 Check your results first
+Open My Results from the menu. Your results page lists every course of the semester with its
+continuous assessment (CA) mark out of 30, its exam mark out of 70, the total out of 100, the grade
+and its status.
+Figure 1: My Results: each course with its CA, exam, total and grade. Here the exam mark of CSC1222
+shows 0, which the student believes is wrong.
+Look carefully for:
+• a CA or exam mark that is missing (shown as a dash) or shows 0 although you took the
+assessment;
+• a mark that is different from the one you were told or expected;
+• a resit mark that does not appear after you sat the resit.
+2 ICT University Yaoundé
+
+ICTU ERP: How to Complain About Your Results Chapter 1. Before You Complain
+NOTE: If your results page says your results are hidden because of unpaid fees, this is not
+a complaint: results appear once the tuition for the semester is cleared. Go to My Fees or
+contact the Finance office.
+NOTE: If a course shows Withheld, the university has held that result back for a reason that
+is shown with it, together with the office to contact. Contact that office rather than filing a
+complaint.
+1.2 What you need
+• The course concerned, and what exactly is wrong.
+• The mark you expected, if you know it.
+• Evidence if you have it (optional): a photo or scan of a marked script, a test sheet, an
+attendance slip. Accepted formats are PDF, JPG and PNG, up to 10 MB.
+CAUTION: For exam and resit marks and for grade appeals, the lecturer sees you only under
+your exam code, never your name. Do not write your name or matricule in your description
+or on your evidence, so that your script stays anonymous.
+3 ICT University Yaoundé
+
+2 Choosing the Right Kind of Complaint
+2.1 Complaints about a course
+Most complaints are about a course. Choose the category that matches your problem: it decides
+who receives the complaint and what they are asked to check.
+Category Use it when Your name
+Missing CA Marks Your continuous assessment mark is not show-
+ing, or shows as missing.
+Visible to the lec-
+turer
+Missing Exam Marks You sat the exam but no exam mark appears. Hidden (exam code)
+Missing Resit Marks You sat the resit but no resit mark appears. Hidden (exam code)
+Wrong Mark Entered A mark appears but you believe it is not the
+one you earned. Say which mark and what you
+expected.
+Hidden for exam and
+resit marks
+Grade Appeal You ask for your script to be re-marked. Hidden (exam code)
+Attendance Dispute Your attendance record for the course is wrong. Visible to the lec-
+turer
+Other Anything else about the course. Visible to the lec-
+turer
+TIP: If more than one mark is missing (for example the CA and the exam), tick both in the
+form. The ERP files a separate ticket for each mark, so each one is followed and corrected on
+its own.
+2.2 General complaints
+A problem that is not about the marks of one course (a timetable clash, a registration problem,
+a service you did not receive) is a general complaint. You send it to the Admin Assistant, your
+Coordinator or the Dean.
+4 ICT University Yaoundé
+
+3 Filing a Complaint Step by Step
+3.1 Open the Complaints page
+On a computer, open More → Complaints in the menu on the left. On a phone, tap Menu at
+the bottom of the screen and then Complaints.
+Figure 2: The Complaints page: the form to submit a complaint on the left, and your complaints on the
+right.
+3.2 Fill in the form
+1 Keep About a Course selected (it is the default).
+2 Choose the Course. Your current marks on record for that course appear under it, so you
+can check them before you continue.
+3 Click the category that matches your problem. A short explanation of the category appears
+under the buttons.
+4 For missing or wrong marks, tick the mark concerned (CA, Exam or Resit) and type the mark
+you expect: CA out of 30, exam and resit out of 70.
+5 Describe the issue in a few clear sentences: when and where you took the assessment, what
+you see, and what you expected.
+5 ICT University Yaoundé
+
+ICTU ERP: How to Complain About Your Results Chapter 3. Filing a Complaint Step by Step
+6 Attach your evidence if you have any (optional).
+7 Check the line Your complaint will be filed as, then click Submit Complaint.
+Figure 3: A completed complaint about a missing exam mark: course, category, the mark concerned with the
+expected value, and a clear description.
+RECOMMENDED: A good description is short and precise, for example: “I sat the
+CSC1222 exam on 12 June in Hall B, but my exam mark shows 0. I expected about 45 out of
+70.”
+After you submit, the ERP shows your ticket number (for example C-2026-811). Keep it: it
+identifies your complaint in every message.
+NOTE: You cannot open a second complaint on the same course and category while the first
+one is still open. Add any new information as a reply to the open complaint instead.
+6 ICT University Yaoundé
+
+ICTU ERP: How to Complain About Your Results Chapter 3. Filing a Complaint Step by Step
+3.3 Filing a general complaint
+1 On the Complaints page, click General Complaint.
+2 Under Send to, choose the Admin Assistant, your Coordinator or the Dean.
+3 Write a short Subject and describe the issue.
+4 Attach evidence if you have any, then click Submit Complaint.
+Figure 4: A general complaint sent to the Coordinator.
+7 ICT University Yaoundé
+
+4 What Happens to Your Complaint
+4.1 The journey of a complaint
+A complaint about a course goes straight to the course lecturer. When a mark has to change, the
+correction is checked and approved by the Dean or the Registrar before it reaches your results.
+You submit
+the complaint
+Lecturer
+checks it
+and replies
+Mark corrected:
+sent for approval
+No change:
+closed with a reason
+Dean or Registrar
+approves
+Resolved
+results updated
+mark wrong
+mark right
+The usual path of a complaint about marks. Your Coordinator or the Admin Assistant can also handle it if
+the lecturer is unavailable.
+Every complaint has a response deadline for the member of staff handling it. If the deadline passes,
+the faculty is reminded so that your complaint does not stay waiting.
+4.2 Following your complaint
+Open your complaint from My Complaints (click View thread). A tracker at the top shows
+where it is, and the conversation below it shows every message.
+Figure 5: Just after submitting: the complaint is with the member of staff handling it.
+8 ICT University Yaoundé
+
+ICTU ERP: How to Complain About Your Results Chapter 4. What Happens to Your Complaint
+Step in the tracker What it means
+Submitted Your complaint is filed and has a ticket number.
+Being handled The lecturer (or the Coordinator or Admin Assistant) is looking at
+it. You can reply and add information.
+Awaiting approval A corrected mark has been proposed and is waiting for the Dean or
+the Registrar. Your marks change only once it is approved.
+Outcome The complaint is resolved (the correction is on your results) or
+closed (no change, with the reason given).
+You are notified in the ERP each time somebody replies or the status changes. The badge New
+reply in My Complaints shows a message you have not read yet.
+4.3 Replying
+While the complaint is open, write in the box under the conversation and click Send Reply, for
+example to answer a question from your lecturer or to add a detail you forgot.
+Figure 6: The lecturer has answered and sent a corrected mark. It is now waiting for the Dean or the
+Registrar.
+4.4 What your lecturer sees
+For exam marks, resit marks and grade appeals, your lecturer sees an Anonymous candidate and
+your exam code, not your name. They read your description, check the script under that code, and
+9 ICT University Yaoundé
+
+ICTU ERP: How to Complain About Your Results Chapter 4. What Happens to Your Complaint
+then send a resolution with the corrected mark, reply to ask a question, or close the complaint with
+a reason.
+Figure 7: The lecturer’s side of the same complaint: the student appears only as an anonymous candidate.
+10 ICT University Yaoundé
+
+5 When Your Complaint Is Resolved
+5.1 Resolved or closed
+When the Dean or the Registrar approves a correction, the complaint becomes Resolved and the
+new mark appears on your results and on your transcript. If the staff found that the mark was
+right, the complaint is Closed with the reason in the conversation.
+Figure 8: A resolved complaint: every step of the tracker is complete, and the box at the bottom lets you
+appeal once if you disagree.
+5.2 Appealing once
+If you disagree with the outcome, you can appeal once:
+1 Open the resolved or closed complaint.
+2 Under Not satisfied with the outcome?, explain why it should be looked at again.
+11 ICT University Yaoundé
+
+ICTU ERP: How to Complain About Your Results Chapter 5. When Your Complaint Is Resolved
+3 Click Send appeal. The complaint is reopened for the faculty.
+IMPORTANT: You can appeal a complaint only once. Give every reason and every piece
+of evidence in your appeal.
+12 ICT University Yaoundé
+
+6 On Your Phone
+Everything in this guide works the same on a phone. The Complaints page has two tabs at the top,
+New complaint and My complaints; the red dot tells you there is something new.
+Figure 9: My complaints on a phone, with the status of each complaint and a new reply waiting.
+13 ICT University Yaoundé
+
+7 Quick Answers
+How long does it take?
+The member of staff handling your complaint has a deadline to respond. A mark correction then
+needs the approval of the Dean or the Registrar. You can see at every moment where your complaint
+is.
+Will the lecturer know who I am?
+Not for exam marks, resit marks and grade appeals: they see only your exam code. For CA marks,
+attendance and other complaints they see your name, because they need it to check their records.
+Do I have to attach evidence?
+No. Evidence is optional, but it helps the staff decide quickly.
+My lecturer is not responding. What do I do?
+Nothing extra: when the deadline passes the faculty is reminded, and the Coordinator or the Admin
+Assistant can handle your complaint.
+Can I complain about several marks at once?
+Yes. Tick every mark concerned in the form; each gets its own ticket.
+When does my result change?
+Only after the Dean or the Registrar approves the correction. Then it appears on your results and
+transcript automatically.
+My results are hidden. Is that a complaint?
+No. Results are hidden until the semester’s tuition is paid. Contact the Finance office.
+RECOMMENDED: Check your results as soon as they are published, file your complaint
+early, write a clear description, and follow it on the Complaints page until it is resolved.
+ICTU ERP System • How to Complain About Your Results v1.0 • Academic Year 2026/2027
+ICT University Yaoundé • November 17, 2026
+© Engr Tanwi Nkiamboh. All rights reserved.
+14 ICT University Yaoundé

@@ -1,0 +1,28 @@
+name: Wrong answer
+description: A chatbot gave an answer that does not match the university's current information.
+labels: [wrong-answer]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question asked
+    validations:
+      required: true
+  - type: textarea
+    id: given
+    attributes:
+      label: Answer given
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: Correct answer and where it was confirmed
+      description: Office, official document or URL.
+    validations:
+      required: true
+  - type: input
+    id: document
+    attributes:
+      label: Document id, if known
+      placeholder: finance-installments

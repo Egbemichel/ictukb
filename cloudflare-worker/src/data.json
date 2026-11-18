@@ -1,0 +1,66 @@
+{
+ "categories": {
+  "about": {
+   "label": "About the university",
+   "description": "History, mission, contacts, regulations, academic calendar"
+  },
+  "admissions": {
+   "label": "Admissions",
+   "description": "How to apply, requirements, deadlines, application forms"
+  },
+  "programs": {
+   "label": "Programs",
+   "description": "Faculties, departments, curricula, graduation requirements, thesis rules"
+  },
+  "procedures": {
+   "label": "Academic processes",
+   "description": "Registration, resits, transcripts, final year project, internships, complaints"
+  },
+  "finance": {
+   "label": "Finance",
+   "description": "Fees, installments, payment channels, clearance, refunds, scholarships"
+  },
+  "erp": {
+   "label": "ERP system",
+   "description": "Student-facing ERP flows, support, release notes"
+  },
+  "campus": {
+   "label": "Campus and directions",
+   "description": "Location, floor plans, rooms, offices, facilities"
+  },
+  "transport": {
+   "label": "Transport",
+   "description": "University bus service, routes, fares"
+  },
+  "canteen": {
+   "label": "Canteen",
+   "description": "Menu, prices, opening hours, payment methods"
+  },
+  "timetables": {
+   "label": "Timetables",
+   "description": "Class, exam and resit timetables"
+  },
+  "people": {
+   "label": "People",
+   "description": "Staff directory, heads of department, delegates, course lecturers"
+  },
+  "student-life": {
+   "label": "Student life",
+   "description": "Clubs, Student Union Government, events, sports"
+  },
+  "announcements": {
+   "label": "Announcements",
+   "description": "Current notices, closures, rescheduled classes"
+  }
+ },
+ "freshness_tiers": {
+  "realtime": 1,
+  "daily": 7,
+  "semester": 120,
+  "static": 365
+ },
+ "allowed_email_domains": [
+  "ictuniversity.org",
+  "ictuniversity.edu.cm"
+ ]
+}

@@ -1,0 +1,11 @@
+{
+  "timezone": "Africa/Douala",
+  "onlyAdminMessages": true,
+  "officialEmailDomains": ["ictuniversity.org", "ictuniversity.edu.cm"],
+  "routes": [
+    { "label": "ictu-community", "match": ["The ICT-U community"], "kind": "announcement" },
+    { "label": "students-union", "match": ["Students Union"], "kind": "student-life-post" },
+    { "label": "food-order", "match": ["Food Order"], "kind": "canteen-menu" },
+    { "label": "sports", "match": ["SPORTS Community"], "kind": "student-life-post" }
+  ]
+}

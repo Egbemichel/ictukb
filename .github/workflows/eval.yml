@@ -1,0 +1,60 @@
+name: eval
+
+# Runs the golden questions against a throwaway staging index built from the pull request.
+on:
+  pull_request:
+    paths:
+      - "content/**"
+      - "eval/**"
+      - "src/**"
+
+jobs:
+  retrieval:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: ictkb
+          POSTGRES_PASSWORD: ictkb
+          POSTGRES_DB: ictkb
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U ictkb" --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://ictkb:ictkb@localhost:5432/ictkb
+      KB_ENV: staging
+      EMBEDDING_PROVIDER: cohere
+      COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check that embeddings are available
+        id: gate
+        run: |
+          if [ -z "$COHERE_API_KEY" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "COHERE_API_KEY is not available to this run (for example a fork); evaluation skipped."
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.run == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Build staging index and evaluate
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          pip install -e .
+          ictkb migrate
+          ictkb index
+          ictkb sync-sheets || true
+          python eval/run_eval.py --report eval/reports/latest.md
+      - name: Publish report
+        if: always() && steps.gate.outputs.run == 'true'
+        run: cat eval/reports/latest.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.gate.outputs.run == 'true'
+        with:
+          name: eval-report
+          path: eval/reports/latest.md

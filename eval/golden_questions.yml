@@ -1,0 +1,120 @@
+# Golden question set. Each owner fills answer_notes from verified sources.
+# expected_docs: a result counts when its document id equals an entry or starts with "<entry>-"
+#   (grouped sheet documents carry a suffix such as timetables-classes-software-engineering-year-2-s1).
+#   type multi-hop requires every listed document; every other type requires any one of them.
+# priority: P0 core topics (fees, registration, transcripts, timetables, ERP login), P1 other, P2 minor.
+# no-answer questions have no expected_docs; the system must report low or no confidence.
+
+- {id: ADM-01, question: "How do I apply to ICT University?", category: admissions, type: procedural, language: en, priority: P0, expected_docs: [admissions-how-to-apply, web-apply-to-ictu], answer_notes: ''}
+- {id: ADM-02, question: "What documents do I need for a Bachelors application?", category: admissions, type: list, language: en, priority: P1, expected_docs: [admissions-bachelor-requirements, web-bachelors-degree-entry-requirements], answer_notes: ''}
+- {id: ADM-03, question: "What are the entry requirements for the Masters program?", category: admissions, type: list, language: en, priority: P1, expected_docs: [admissions-masters-requirements, web-maters-degree-entry-requirements], answer_notes: ''}
+- {id: ADM-04, question: "How do I apply for the PhD program?", category: admissions, type: procedural, language: en, priority: P1, expected_docs: [admissions-phd-requirements], answer_notes: ''}
+- {id: ADM-05, question: "What is the application deadline for the next intake?", category: admissions, type: factual, language: en, priority: P1, expected_docs: [admissions-deadlines], answer_notes: ''}
+- {id: ADM-06, question: "Is there an application fee, and how much is it?", category: admissions, type: factual, language: en, priority: P1, expected_docs: [admissions-fee], answer_notes: ''}
+- {id: ADM-07, question: "Can I transfer from another university?", category: admissions, type: factual, language: en, priority: P1, expected_docs: [admissions-transfer], answer_notes: ''}
+- {id: ADM-08, question: "Are scholarships or discounts available?", category: finance, type: factual, language: en, priority: P1, expected_docs: [finance-scholarships], answer_notes: ''}
+
+- {id: PRG-01, question: "What programs does ICT University offer?", category: programs, type: list, language: en, priority: P1, expected_docs: [programs-overview, web-programmes, web-bachelor-programs, web-masters-programs], answer_notes: ''}
+- {id: PRG-02, question: "Which Masters programs are offered?", category: programs, type: list, language: en, priority: P1, expected_docs: [programs-masters, web-masters-programs], answer_notes: ''}
+- {id: PRG-03, question: "Which PhD research areas are available?", category: programs, type: list, language: en, priority: P1, expected_docs: [programs-phd], answer_notes: ''}
+- {id: PRG-04, question: "What courses are taught in Software Engineering, Year 2, Semester 1?", category: programs, type: list, language: en, priority: P1, expected_docs: [programs-curriculum], answer_notes: ''}
+- {id: PRG-05, question: "How many credits is a given course, and what does it cover?", category: programs, type: factual, language: en, priority: P1, expected_docs: [programs-course-descriptions, programs-curriculum], answer_notes: ''}
+- {id: PRG-06, question: "How long does the Masters program take?", category: programs, type: factual, language: en, priority: P1, expected_docs: [programs-masters], answer_notes: ''}
+- {id: PRG-07, question: "What do I need to graduate with a Bachelors degree?", category: programs, type: list, language: en, priority: P1, expected_docs: [programs-graduation-requirements], answer_notes: ''}
+- {id: PRG-08, question: "How is a Masters thesis structured and defended?", category: programs, type: procedural, language: en, priority: P1, expected_docs: [programs-masters-thesis], answer_notes: ''}
+- {id: PRG-09, question: "Are there evening or weekend classes?", category: programs, type: factual, language: en, priority: P1, expected_docs: [programs-schedule-types], answer_notes: ''}
+
+- {id: PRC-01, question: "How do I register for courses each semester?", category: procedures, type: procedural, language: en, priority: P0, expected_docs: [procedures-course-registration], answer_notes: ''}
+- {id: PRC-02, question: "What is the course registration deadline?", category: procedures, type: factual, language: en, priority: P0, expected_docs: [procedures-course-registration], answer_notes: ''}
+- {id: PRC-03, question: "What happens if I miss course registration?", category: procedures, type: factual, language: en, priority: P0, expected_docs: [procedures-course-registration], answer_notes: ''}
+- {id: PRC-04, question: "Can I add or drop a course after registering?", category: procedures, type: factual, language: en, priority: P1, expected_docs: [procedures-add-drop], answer_notes: ''}
+- {id: PRC-05, question: "How do I register for a resit?", category: procedures, type: procedural, language: en, priority: P1, expected_docs: [procedures-resits], answer_notes: ''}
+- {id: PRC-06, question: "Who is eligible for a resit, and what does it cost?", category: procedures, type: factual, language: en, priority: P1, expected_docs: [procedures-resits], answer_notes: ''}
+- {id: PRC-07, question: "When are resit exams held?", category: timetables, type: factual, language: en, priority: P1, expected_docs: [timetables-exams], answer_notes: ''}
+- {id: PRC-08, question: "How do I request an official transcript?", category: procedures, type: procedural, language: en, priority: P0, expected_docs: [procedures-transcript], answer_notes: ''}
+- {id: PRC-09, question: "How long does a transcript take, and what does it cost?", category: procedures, type: factual, language: en, priority: P0, expected_docs: [procedures-transcript], answer_notes: ''}
+- {id: PRC-10, question: "How do I apply for my final year project?", category: procedures, type: procedural, language: en, priority: P1, expected_docs: [procedures-fyp-application], answer_notes: ''}
+- {id: PRC-11, question: "What are the final year project deadlines and defense format?", category: procedures, type: factual, language: en, priority: P1, expected_docs: [procedures-fyp-defense], answer_notes: ''}
+- {id: PRC-12, question: "How do I get an internship placement?", category: procedures, type: procedural, language: en, priority: P1, expected_docs: [procedures-internships], answer_notes: ''}
+- {id: PRC-13, question: "How long is the internship, and what report is required?", category: procedures, type: factual, language: en, priority: P1, expected_docs: [procedures-internships], answer_notes: ''}
+- {id: PRC-14, question: "How do I file a complaint about a grade?", category: procedures, type: procedural, language: en, priority: P1, expected_docs: [procedures-complaints], answer_notes: ''}
+- {id: PRC-15, question: "Who do I contact to file a complaint about a service?", category: procedures, type: factual, language: en, priority: P1, expected_docs: [procedures-complaints], answer_notes: ''}
+- {id: PRC-16, question: "How is my GPA calculated, and what is the grading scale?", category: about, type: factual, language: en, priority: P1, expected_docs: [about-academic-regulations], answer_notes: ''}
+- {id: PRC-17, question: "What is the minimum attendance required?", category: about, type: factual, language: en, priority: P1, expected_docs: [about-academic-regulations], answer_notes: ''}
+- {id: PRC-18, question: "How do I defer or withdraw from a semester?", category: procedures, type: procedural, language: en, priority: P1, expected_docs: [procedures-deferment], answer_notes: ''}
+
+- {id: FIN-01, question: "How much are tuition fees for the Bachelors program?", category: finance, type: factual, language: en, priority: P0, expected_docs: [finance-fee-schedule], answer_notes: ''}
+- {id: FIN-02, question: "How much are tuition fees for the Masters program?", category: finance, type: factual, language: en, priority: P0, expected_docs: [finance-fee-schedule], answer_notes: ''}
+- {id: FIN-03, question: "How much are tuition fees for the PhD program?", category: finance, type: factual, language: en, priority: P0, expected_docs: [finance-fee-schedule], answer_notes: ''}
+- {id: FIN-04, question: "Can I pay my fees in installments?", category: finance, type: factual, language: en, priority: P0, expected_docs: [finance-installments], answer_notes: ''}
+- {id: FIN-05, question: "What are the installment dates and amounts?", category: finance, type: list, language: en, priority: P0, expected_docs: [finance-installments], answer_notes: ''}
+- {id: FIN-06, question: "What payment methods are accepted?", category: finance, type: list, language: en, priority: P0, expected_docs: [finance-payment-channels], answer_notes: ''}
+- {id: FIN-07, question: "What happens if I pay late?", category: finance, type: factual, language: en, priority: P1, expected_docs: [finance-late-payment], answer_notes: ''}
+- {id: FIN-08, question: "What is financial clearance, and how do I get it?", category: finance, type: procedural, language: en, priority: P1, expected_docs: [finance-clearance], answer_notes: ''}
+- {id: FIN-09, question: "Is there a refund policy?", category: finance, type: factual, language: en, priority: P1, expected_docs: [finance-refunds], answer_notes: ''}
+- {id: FIN-10, question: "How do I get a receipt or proof of payment?", category: finance, type: procedural, language: en, priority: P1, expected_docs: [finance-payment-channels], answer_notes: ''}
+
+- {id: ERP-01, question: "What is the ERP system, and what can I do with it?", category: erp, type: factual, language: en, priority: P0, expected_docs: [erp-overview], answer_notes: ''}
+- {id: ERP-02, question: "How do I log in to the ERP for the first time?", category: erp, type: procedural, language: en, priority: P0, expected_docs: [erp-first-login], answer_notes: ''}
+- {id: ERP-03, question: "I forgot my ERP password. What do I do?", category: erp, type: procedural, language: en, priority: P0, expected_docs: [erp-password-reset], answer_notes: ''}
+- {id: ERP-04, question: "How do I register courses on the ERP?", category: erp, type: procedural, language: en, priority: P1, expected_docs: [erp-course-registration], answer_notes: ''}
+- {id: ERP-05, question: "Where do I see my results on the ERP?", category: erp, type: factual, language: en, priority: P1, expected_docs: [erp-results], answer_notes: ''}
+- {id: ERP-06, question: "How do I view my fee statement on the ERP?", category: erp, type: procedural, language: en, priority: P1, expected_docs: [erp-fee-statement], answer_notes: ''}
+- {id: ERP-07, question: "Who do I contact if the ERP isn't working?", category: erp, type: factual, language: en, priority: P1, expected_docs: [erp-support], answer_notes: ''}
+- {id: ERP-08, question: "What changed in the latest ERP update?", category: erp, type: factual, language: en, priority: P2, expected_docs: [erp-release-notes], answer_notes: ''}
+
+- {id: CMP-01, question: "Where is the university located?", category: campus, type: factual, language: en, priority: P1, expected_docs: [campus-location], answer_notes: ''}
+- {id: CMP-02, question: "How do I get to the university by taxi or bus?", category: campus, type: procedural, language: en, priority: P1, expected_docs: [campus-directions], answer_notes: ''}
+- {id: CMP-03, question: "Which floor is the library on?", category: campus, type: factual, language: en, priority: P1, expected_docs: [campus-room-directory], answer_notes: ''}
+- {id: CMP-04, question: "Where is the finance office?", category: campus, type: factual, language: en, priority: P1, expected_docs: [campus-office-directory], answer_notes: ''}
+- {id: CMP-05, question: "Where is the admissions office?", category: campus, type: factual, language: en, priority: P1, expected_docs: [campus-office-directory], answer_notes: ''}
+- {id: CMP-06, question: "Where are the computer labs?", category: campus, type: factual, language: en, priority: P1, expected_docs: [campus-room-directory], answer_notes: ''}
+- {id: CMP-07, question: "What are the campus opening hours?", category: campus, type: factual, language: en, priority: P1, expected_docs: [campus-facilities], answer_notes: ''}
+- {id: CMP-08, question: "Is there Wi-Fi, and how do I connect?", category: campus, type: procedural, language: en, priority: P1, expected_docs: [campus-facilities], answer_notes: ''}
+- {id: CMP-09, question: "Where is the Student Union office?", category: campus, type: factual, language: en, priority: P1, expected_docs: [campus-office-directory], answer_notes: ''}
+- {id: TRN-01, question: "Is there a school bus service?", category: transport, type: factual, language: en, priority: P1, expected_docs: [transport-overview], answer_notes: ''}
+- {id: TRN-02, question: "What are the bus routes and pick-up times?", category: transport, type: list, language: en, priority: P1, expected_docs: [transport-schedule], answer_notes: ''}
+- {id: TRN-03, question: "How much does the bus cost, and how do I subscribe?", category: transport, type: factual, language: en, priority: P1, expected_docs: [transport-fares, transport-overview], answer_notes: ''}
+- {id: CAN-01, question: "What is on the canteen menu today?", category: canteen, type: list, language: en, priority: P1, expected_docs: [canteen-menu], answer_notes: ''}
+- {id: CAN-02, question: "What time does the canteen open and close?", category: canteen, type: factual, language: en, priority: P1, expected_docs: [canteen-hours], answer_notes: ''}
+- {id: CAN-03, question: "How much does a meal cost?", category: canteen, type: factual, language: en, priority: P1, expected_docs: [canteen-menu], answer_notes: ''}
+- {id: CAN-04, question: "Does the canteen accept mobile money?", category: canteen, type: factual, language: en, priority: P2, expected_docs: [canteen-payment], answer_notes: ''}
+
+- {id: TTB-01, question: "What is the timetable for Software Engineering, Year 2, Semester 1?", category: timetables, type: list, language: en, priority: P0, expected_docs: [timetables-classes], answer_notes: ''}
+- {id: TTB-02, question: "When is the next class for a given course?", category: timetables, type: factual, language: en, priority: P0, expected_docs: [timetables-classes, programs-curriculum-files], answer_notes: ''}
+- {id: TTB-03, question: "When are the exams?", category: timetables, type: factual, language: en, priority: P0, expected_docs: [timetables-exams], answer_notes: ''}
+- {id: TTB-04, question: "Has any class been rescheduled this week?", category: announcements, type: factual, language: en, priority: P1, expected_docs: [announcements-current], answer_notes: ''}
+- {id: TTB-05, question: "Which lecturer teaches a given course?", category: people, type: factual, language: en, priority: P1, expected_docs: [people-course-lecturers, timetables-classes], answer_notes: ''}
+- {id: PPL-01, question: "Who is the class delegate for Year 2 Software Engineering this semester?", category: people, type: factual, language: en, priority: P1, expected_docs: [people-delegates], answer_notes: ''}
+- {id: PPL-02, question: "Who is the head of the Computer Science department?", category: people, type: factual, language: en, priority: P1, expected_docs: [people-heads-of-department], answer_notes: ''}
+- {id: PPL-03, question: "Who handles finance questions?", category: people, type: factual, language: en, priority: P1, expected_docs: [people-office-responsibilities], answer_notes: ''}
+- {id: PPL-04, question: "How do I contact the admissions office?", category: about, type: factual, language: en, priority: P1, expected_docs: [about-contacts, people-office-responsibilities], answer_notes: ''}
+- {id: PPL-05, question: "What are a given staff member's office hours?", category: people, type: factual, language: en, priority: P2, expected_docs: [people-staff-directory], answer_notes: ''}
+- {id: PPL-06, question: "Who are the lecturers in the Software Engineering department?", category: people, type: list, language: en, priority: P2, expected_docs: [people-staff-directory, people-course-lecturers], answer_notes: ''}
+
+- {id: STL-01, question: "What clubs exist, and how do I join one?", category: student-life, type: list, language: en, priority: P1, expected_docs: [student-life-clubs], answer_notes: ''}
+- {id: STL-02, question: "Who are the current Student Union executives?", category: student-life, type: list, language: en, priority: P1, expected_docs: [student-life-sug], answer_notes: ''}
+- {id: STL-03, question: "What does the Student Union Government do?", category: student-life, type: factual, language: en, priority: P1, expected_docs: [student-life-sug], answer_notes: ''}
+- {id: STL-04, question: "When is the next Student Union election?", category: student-life, type: factual, language: en, priority: P2, expected_docs: [student-life-sug-elections], answer_notes: ''}
+- {id: STL-05, question: "What events are coming up this month?", category: student-life, type: list, language: en, priority: P2, expected_docs: [student-life-events], answer_notes: ''}
+- {id: STL-06, question: "How do I start a new club?", category: student-life, type: procedural, language: en, priority: P2, expected_docs: [student-life-start-club], answer_notes: ''}
+- {id: ANN-01, question: "What are the latest announcements?", category: announcements, type: list, language: en, priority: P0, expected_docs: [announcements-current], answer_notes: ''}
+- {id: ANN-02, question: "Is the university closed for any upcoming holiday?", category: about, type: factual, language: en, priority: P1, expected_docs: [about-academic-calendar, web-academic-calendar-2026-2027], answer_notes: ''}
+
+- {id: MHP-01, question: "I owe part of my fees and want a transcript. What do I need to do?", category: finance, type: multi-hop, language: en, priority: P1, expected_docs: [finance-clearance, procedures-transcript], answer_notes: ''}
+- {id: MHP-02, question: "I failed a course. How do I resit, and what will it cost?", category: procedures, type: multi-hop, language: en, priority: P1, expected_docs: [procedures-resits, finance-fee-schedule], answer_notes: ''}
+- {id: MHP-03, question: "I'm applying for the Masters. What are the requirements and the fees?", category: admissions, type: multi-hop, language: en, priority: P1, expected_docs: [admissions-masters-requirements, finance-fee-schedule], answer_notes: ''}
+- {id: MHP-04, question: "Where do I go to submit my final year project proposal, and by when?", category: procedures, type: multi-hop, language: en, priority: P1, expected_docs: [procedures-fyp-application, campus-office-directory], answer_notes: ''}
+
+- {id: VAR-01, question: "Comment puis-je m'inscrire aux cours ?", category: procedures, type: variant, language: fr, priority: P1, expected_docs: [procedures-course-registration], answer_notes: ''}
+- {id: VAR-02, question: "Quels sont les frais de scolarité ?", category: finance, type: variant, language: fr, priority: P1, expected_docs: [finance-fee-schedule], answer_notes: ''}
+- {id: VAR-03, question: "Où se trouve le bureau des finances ?", category: campus, type: variant, language: fr, priority: P1, expected_docs: [campus-office-directory], answer_notes: ''}
+- {id: VAR-04, question: "how 2 pay fees in installmnts", category: finance, type: variant, language: en, priority: P1, expected_docs: [finance-installments], answer_notes: ''}
+- {id: VAR-05, question: "wat time canteen open", category: canteen, type: variant, language: en, priority: P2, expected_docs: [canteen-hours], answer_notes: ''}
+- {id: VAR-06, question: "ERP wont let me login", category: erp, type: variant, language: en, priority: P1, expected_docs: [erp-first-login, erp-password-reset], answer_notes: ''}
+
+- {id: NEG-01, question: "What is the rector's personal phone number?", category: about, type: no-answer, language: en, priority: P1, expected_docs: [], answer_notes: 'No personal numbers are stored.'}
+- {id: NEG-02, question: "What is my current fee balance?", category: finance, type: no-answer, language: en, priority: P1, expected_docs: [], answer_notes: 'Personal data is deliberately not stored.'}
+- {id: NEG-03, question: "What were last year's exam questions for a given course?", category: programs, type: no-answer, language: en, priority: P2, expected_docs: [], answer_notes: ''}
+- {id: NEG-04, question: "Will I pass my resit?", category: procedures, type: no-answer, language: en, priority: P2, expected_docs: [], answer_notes: ''}
+- {id: NEG-05, question: "What's the weather in Yaounde today?", category: about, type: no-answer, language: en, priority: P2, expected_docs: [], answer_notes: ''}

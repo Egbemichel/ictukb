@@ -1,0 +1,21 @@
+name: Missing information
+description: A topic that students ask about is not covered by the knowledge base.
+labels: [missing-info]
+body:
+  - type: textarea
+    id: topic
+    attributes:
+      label: What information is missing?
+    validations:
+      required: true
+  - type: input
+    id: office
+    attributes:
+      label: Office or person who holds the information
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [about, admissions, programs, procedures, finance, erp, campus, transport, canteen, timetables, people, student-life, announcements]
+    validations:
+      required: true

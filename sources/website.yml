@@ -1,0 +1,45 @@
+# Website connector configuration (WordPress REST API of the university site).
+# The crawler honours robots.txt, including Crawl-delay (20 seconds at the time of writing).
+
+base_url: https://ictuniversity.org
+api_path: /wp-json/wp/v2
+user_agent: ictu-kb-crawler
+request_delay_seconds: 20
+owner: website
+min_chars: 200
+
+# Pages that carry no information for students
+exclude_slugs:
+  - underconstruction
+  - concour-e-agriculture
+  - student-life
+
+# News posts: only recent ones are kept, because old news is not useful to students
+posts:
+  enabled: true
+  category: announcements
+  tier: daily
+  max_posts: 30
+  max_age_days: 365
+
+# First matching rule on the page slug wins
+rules:
+  - match: "academic-calendar"
+    category: about
+    tier: semester
+    subcategory: academic-calendar
+  - match: "entry-requirements|apply-to"
+    category: admissions
+    tier: semester
+    subcategory: requirements
+  - match: "^(bachelor|master|international-master|computer-sciences|ict-faculty|programmes|program-search)"
+    category: programs
+    tier: semester
+  - match: "faculty"
+    category: programs
+    tier: semester
+    subcategory: faculty
+
+default:
+  category: about
+  tier: semester

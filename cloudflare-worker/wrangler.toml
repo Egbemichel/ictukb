@@ -1,0 +1,14 @@
+name = "ictkb-api"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Secrets (set with: wrangler secret put NAME): DATABASE_URL, COHERE_API_KEY, ADMIN_TOKEN
+[vars]
+KB_ENV = "production"
+MIN_SIMILARITY = "0.40"
+VISION_MODEL = "command-a-vision-07-2025"
+REQUIRE_API_KEY = "true"
+DEFAULT_RATE_LIMIT_PER_MIN = "60"
+CLOUDINARY_CLOUD_NAME = "ljouzf0i"
+CORS_ORIGINS = "*"
+EMBEDDING_MODEL = "embed-multilingual-v3.0"

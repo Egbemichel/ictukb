@@ -1,0 +1,21 @@
+name: Stale content
+description: A document is out of date or was not re-verified within its freshness limit.
+labels: [stale-content]
+body:
+  - type: input
+    id: document
+    attributes:
+      label: Document id
+      placeholder: finance-fee-schedule
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What has changed?
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source of the new information

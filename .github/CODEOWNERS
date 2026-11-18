@@ -1,0 +1,25 @@
+# Replace the placeholder handles with real GitHub handles before enabling branch protection.
+# Infrastructure
+/src/                @REPLACE-infra-owner
+/db/                 @REPLACE-infra-owner
+/docker/             @REPLACE-infra-owner
+/.github/            @REPLACE-infra-owner
+/schema/             @REPLACE-infra-owner
+/sources/            @REPLACE-infra-owner
+/scripts/            @REPLACE-infra-owner
+/eval/               @REPLACE-infra-owner
+
+# Content owners, one per category
+/content/about/          @REPLACE-about-owner
+/content/admissions/     @REPLACE-admissions-owner
+/content/programs/       @REPLACE-programs-owner
+/content/procedures/     @REPLACE-procedures-owner
+/content/finance/        @REPLACE-finance-owner
+/content/erp/            @REPLACE-erp-owner
+/content/campus/         @REPLACE-campus-owner
+/content/transport/      @REPLACE-transport-owner
+/content/canteen/        @REPLACE-canteen-owner
+/content/timetables/     @REPLACE-timetable-owner
+/content/people/         @REPLACE-people-owner
+/content/student-life/   @REPLACE-student-life-owner
+/content/announcements/  @REPLACE-announcements-owner

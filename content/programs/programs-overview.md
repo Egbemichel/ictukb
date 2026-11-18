@@ -1,0 +1,42 @@
+---
+id: programs-overview
+title: Faculties and programs offered
+category: programs
+subcategory: null
+program_level:
+- all
+department: null
+language: en
+source_type: website
+source_url: https://ictuniversity.org/programmes/
+attachments: []
+academic_year: null
+semester: null
+valid_from: null
+valid_until: null
+freshness_tier: semester
+status: verified
+last_verified: '2026-11-18'
+verified_by: Egbemichel
+owner: Egbemichel
+collected_by: Egbemichel
+collected_on: '2026-11-18'
+confirmed_in_writing: false
+conflict_note: Duration is stated on the website for Bachelor (4 years) and for the
+  BMS Masters (2 years, 132 credits). PhD programs are not listed on the website.
+  An unofficial compiled report was removed as a source.
+tags: []
+related:
+- programs-bachelor
+- programs-masters
+---
+
+## Which faculties and programs does ICT University offer?
+
+The university has two faculties: the Faculty of Information and Communication Technology (ICT) and the Faculty of Business Management and Sustainability (BMS).
+
+Bachelor of Science programs (4 years, 8 semesters): Accounting (ACC, BMS faculty); Banking and Finance (BNF, BMS); Business Management and Sustainability (BMS faculty); Computer Science (CS); Cyber Security; Artificial Intelligence; Digital Agriculture; Digital Media and Mass Communication; Information and Communication Technology (ICT); Information Systems and Networking (ISN); Renewable Energy (RE); Software Engineering (SEN). The ICT faculty also lists Bachelor of Science in Computer Science under the page "Computer Sciences".
+
+Master's programs (2 years, 132 credits for the BMS programs): MSc in Artificial Intelligence (AI); MSc in Applied ICTs in Education (MED); MSc in Applied ICT in Public Health (MPH); MSc in Information Systems Security (ISS); MSc in Information Technology (IT); MSc in Information Systems and Networking (ISN); MSc in Applied Statistics and Demography (ASD, BMS); MSc in Development Planning (DVP, BMS); International Master in Business Administration (iMBA, BMS).
+
+The ICT faculty also offers short courses and professional tracks (18 tracks, 4 to 12 weeks, online and hybrid, industry-recognized certificates).

@@ -1,0 +1,20 @@
+{
+  "name": "ictkb-whatsapp-listener",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reads official WhatsApp groups and posts their menu, bus and announcement messages to the knowledge base API",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "link": "node src/index.js --link",
+    "groups": "node src/index.js --groups",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "baileys": "^7.0.0-rc14",
+    "pino": "^10.4.0"
+  }
+}

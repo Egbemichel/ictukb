@@ -1,0 +1,158 @@
+# Google Sheets that feed volatile or tabular data into the index.
+# Each sheet must be shared as "Anyone with the link can view". Copy the id from the sheet URL:
+#   https://docs.google.com/spreadsheets/d/<sheet_id>/edit#gid=<gid>
+# Leave sheet_id empty until the sheet exists; unconfigured sheets are skipped.
+# Header templates are generated into templates/sheets/<name>.csv by "ictkb scaffold".
+#
+# group_by      one document per distinct combination of these columns
+# rows_per_chunk  rows rendered into one searchable chunk
+# max_age_days  overrides the staleness limit of the tier (days since the sheet content last changed)
+# csv_path      local CSV used instead of Google (tests and offline work)
+
+defaults:
+  language: en
+  rows_per_chunk: 12
+  owner: unassigned
+  program_level: [all]
+
+sheets:
+  - name: programs-curriculum
+    sheet_id: ""
+    gid: 0
+    doc_id: programs-curriculum
+    category: programs
+    title: Curriculum
+    tier: semester
+    columns: [Program, Level, Year, Semester, Course Code, Course Title, Credits, Type, Prerequisites, Description]
+    group_by: [Program, Year, Semester]
+    level_column: Level
+    rows_per_chunk: 14
+
+  - name: timetables-exams
+    sheet_id: ""
+    gid: 0
+    doc_id: timetables-exams
+    category: timetables
+    title: Examination timetable
+    tier: daily
+    max_age_days: 60
+    columns: [Exam Type, Program, Year, Semester, Course Code, Course Title, Date, Start, End, Room, Notes]
+    group_by: [Exam Type]
+    rows_per_chunk: 14
+
+  - name: canteen-menu
+    sheet_id: ""
+    gid: 0
+    doc_id: canteen-menu
+    category: canteen
+    title: Canteen menu and prices
+    tier: realtime
+    max_age_days: 7
+    columns: [Day, Meal, Item, Price XAF, Available, Notes]
+    rows_per_chunk: 16
+
+  - name: transport-schedule
+    sheet_id: ""
+    gid: 0
+    doc_id: transport-schedule
+    category: transport
+    title: Bus routes and pick-up times
+    tier: daily
+    max_age_days: 30
+    columns: [Route, Stop, Pickup Time, Direction, Days, Notes]
+    group_by: [Route]
+    rows_per_chunk: 16
+
+  - name: announcements-current
+    sheet_id: ""
+    gid: 0
+    doc_id: announcements-current
+    category: announcements
+    title: Current announcements
+    tier: realtime
+    max_age_days: 14
+    columns: [Date, Title, Message, Category, Link]
+    rows_per_chunk: 6
+
+  - name: student-life-events
+    sheet_id: ""
+    gid: 0
+    doc_id: student-life-events
+    category: student-life
+    title: Events calendar
+    tier: daily
+    max_age_days: 30
+    columns: [Date, Event, Time, Venue, Organiser, Description, Link]
+    rows_per_chunk: 8
+
+  - name: student-life-clubs
+    sheet_id: ""
+    gid: 0
+    doc_id: student-life-clubs
+    category: student-life
+    title: Clubs and societies
+    tier: semester
+    columns: [Club, Purpose, Leader Role, Meeting Time, How To Join, Social Link]
+    rows_per_chunk: 8
+
+  - name: people-staff-directory
+    sheet_id: ""
+    gid: 0
+    doc_id: people-staff-directory
+    category: people
+    title: Staff and administration directory
+    tier: semester
+    columns: [Name, Title, Department, Office, Email, Office Hours]
+    rows_per_chunk: 12
+
+  - name: people-heads-of-department
+    sheet_id: ""
+    gid: 0
+    doc_id: people-heads-of-department
+    category: people
+    title: Heads of department
+    tier: semester
+    columns: [Department, Head, Title, Office, Email]
+    rows_per_chunk: 12
+
+  - name: people-delegates
+    sheet_id: ""
+    gid: 0
+    doc_id: people-delegates
+    category: people
+    title: Class delegates
+    tier: semester
+    columns: [Program, Year, Semester, Role, Name]
+    group_by: [Program, Year]
+    rows_per_chunk: 12
+
+  - name: people-course-lecturers
+    sheet_id: ""
+    gid: 0
+    doc_id: people-course-lecturers
+    category: people
+    title: Lecturers per course
+    tier: semester
+    columns: [Program, Year, Semester, Course Code, Course Title, Lecturer, Department]
+    group_by: [Program, Year]
+    rows_per_chunk: 14
+
+  - name: campus-room-directory
+    sheet_id: ""
+    gid: 0
+    doc_id: campus-room-directory
+    category: campus
+    title: Room directory
+    tier: static
+    columns: [Room, Floor, Purpose, Nearest Landmark, Directions]
+    rows_per_chunk: 14
+
+  - name: campus-office-directory
+    sheet_id: ""
+    gid: 0
+    doc_id: campus-office-directory
+    category: campus
+    title: Office directory
+    tier: semester
+    columns: [Office, Floor, Room, Services, Opening Hours, Notes]
+    rows_per_chunk: 10

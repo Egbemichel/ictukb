@@ -1,0 +1,1172 @@
+# Catalog of knowledge base documents. This file is the single source of truth for:
+#   - the document stubs under content/ (one per kind: doc entry),
+#   - the Google Sheet templates under templates/sheets/ (kind: sheet entries),
+#   - the collection checklist in docs/upload-checklist.md and docs/upload-checklist.csv.
+# Regenerate with: ictkb scaffold
+#
+# Fields
+#   id      document id (also the file name for kind: doc)
+#   kind    doc (Markdown written by the owner) | sheet (rows synced from Google Sheets)
+#   tier    realtime | daily | semester | static
+#   prio    P0 (needed for the core chatbot) | P1 (needed for a complete bot) | P2 (nice to have)
+#   who     office or role that holds the information
+#   asks    questions that the written answer must cover (kind: doc only)
+#   give    files to upload. Prefix D document, I image, S spreadsheet, Q ask the office, W website
+#   golden  golden question ids that depend on this document
+
+- id: about-university-overview
+  category: about
+  title: ICT University overview, mission and accreditation
+  tier: static
+  prio: P1
+  who: Administration
+  asks:
+    - When was ICT University founded and by whom?
+    - What are the mission, vision and core values?
+    - Which accreditations and official recognitions does the university hold?
+    - In which countries and cities does ICT University operate, and what is the role of the Yaounde campus?
+    - Who are the current leaders (rector, deans) and what are their titles?
+  give:
+    - "D|Institutional brochure or prospectus (PDF)"
+    - "W|History, mission and accreditation pages (collected automatically from the website)"
+
+- id: about-contacts
+  category: about
+  title: Official contacts and opening hours
+  tier: semester
+  prio: P0
+  who: Administration
+  golden: [PPL-04]
+  asks:
+    - What is the official postal address of the university?
+    - What are the general phone number and the general email address?
+    - What are the official social media accounts?
+    - What are the opening hours of the campus and of the administration offices?
+  give:
+    - "I|Photo of the official signboard or letterhead showing the contact details"
+    - "Q|Confirm in writing that the listed numbers are official office lines"
+
+- id: about-academic-regulations
+  category: about
+  title: Academic regulations (grading, attendance, exams, conduct)
+  tier: semester
+  prio: P0
+  who: Registrar
+  golden: [PRC-16, PRC-17]
+  asks:
+    - What is the grading scale and the grade point value of each grade?
+    - How are the semester GPA and the cumulative GPA calculated?
+    - What is the minimum attendance required to sit examinations?
+    - What are the examination rules and the penalties for misconduct?
+    - What is the pass mark, and what are the rules on probation and dismissal?
+    - What are the rules of student conduct and the disciplinary procedure?
+  give:
+    - "D|Student handbook or academic regulations, complete and current (PDF or DOCX)"
+
+- id: about-academic-calendar
+  category: about
+  title: Academic calendar for the current year
+  tier: semester
+  prio: P0
+  who: Registrar
+  golden: [ANN-02]
+  asks:
+    - What are the start and end dates of each semester?
+    - What are the examination and resit periods?
+    - What are the registration and late-registration windows?
+    - Which public holidays and closure days apply?
+  give:
+    - "D|Official signed academic calendar (PDF) to confirm the version on the website"
+    - "I|Calendar poster displayed on campus, if one exists"
+
+- id: about-faq
+  category: about
+  title: Frequently asked questions from the front desk
+  tier: static
+  prio: P2
+  who: Front desk or administration
+  asks:
+    - What are the ten questions that students ask most often at the front desk, and what are the answers?
+  give:
+    - "Q|List of front desk questions, collected over one week"
+
+- id: about-photos
+  category: about
+  title: Logo and photographs of the university
+  tier: static
+  prio: P2
+  who: Communications
+  asks:
+    - Describe each uploaded photograph in one sentence (see the attachment descriptions).
+  give:
+    - "I|University logo (PNG, transparent background)"
+    - "I|Exterior photographs of the building from at least three angles"
+
+- id: admissions-how-to-apply
+  category: admissions
+  title: How to apply to ICT University
+  tier: semester
+  prio: P0
+  who: Admissions office
+  golden: [ADM-01]
+  asks:
+    - What are the steps of the application, from creating an account to receiving an admission decision?
+    - Where is the application submitted (online portal address or office) and who handles it?
+    - How long does a decision take, and how does an applicant check the status?
+    - How many intakes are there each year and when do they start?
+  give:
+    - "I|Screenshots of every step of the online application portal, in order"
+    - "D|Application guide or flyer, if one exists"
+
+- id: admissions-bachelor-requirements
+  category: admissions
+  levels: [bachelor]
+  title: Bachelor admission requirements and documents
+  tier: semester
+  prio: P1
+  who: Admissions office
+  golden: [ADM-02]
+  asks:
+    - Which certificates and minimum results are required for each type of applicant?
+    - Which documents must be submitted, and in what format (originals, certified copies)?
+    - What additional conditions apply to international applicants?
+  give:
+    - "D|Required-documents checklist for Bachelor applicants"
+    - "D|Blank Bachelor application form"
+
+- id: admissions-masters-requirements
+  category: admissions
+  levels: [masters]
+  title: Masters admission requirements and documents
+  tier: semester
+  prio: P1
+  who: Admissions office
+  golden: [ADM-03, MHP-03]
+  asks:
+    - Which degrees and minimum results qualify an applicant for the Masters programs?
+    - Which documents must be submitted?
+    - Are there program-specific requirements (work experience, interview, test)?
+  give:
+    - "D|Required-documents checklist for Masters applicants"
+    - "D|Blank Masters application form"
+
+- id: admissions-phd-requirements
+  category: admissions
+  levels: [phd]
+  title: PhD admission requirements and documents
+  tier: semester
+  prio: P1
+  who: Admissions office or Dean of research
+  golden: [ADM-04]
+  asks:
+    - Which qualifications are required to apply for the PhD program?
+    - What must the research proposal contain and how long should it be?
+    - How is a supervisor assigned and how does the admission decision work?
+  give:
+    - "D|PhD application form and research proposal template"
+
+- id: admissions-deadlines
+  category: admissions
+  title: Application deadlines and intake dates
+  tier: semester
+  prio: P0
+  who: Admissions office
+  golden: [ADM-05]
+  asks:
+    - What is the application deadline for each intake and each level?
+    - When does each intake start?
+    - Is late application possible and at what cost?
+  give:
+    - "D|Notice or page that states the deadlines"
+
+- id: admissions-fee
+  category: admissions
+  title: Application fee
+  tier: semester
+  prio: P1
+  who: Admissions office or Finance office
+  golden: [ADM-06]
+  asks:
+    - Is there an application fee, how much is it, and for which levels?
+    - How and where is the application fee paid, and is it refundable?
+  give:
+    - "Q|Written confirmation of the amount per level"
+
+- id: admissions-transfer
+  category: admissions
+  title: Transfer students and credit recognition
+  tier: static
+  prio: P1
+  who: Registrar
+  golden: [ADM-07]
+  asks:
+    - Can students transfer from another university, and under which conditions?
+    - How are previous credits evaluated and what is the maximum number of credits recognised?
+    - Which documents are needed for a transfer request?
+  give:
+    - "D|Transfer policy, if written"
+
+- id: admissions-international
+  category: admissions
+  title: International applicants (visas, equivalence, online study)
+  tier: static
+  prio: P2
+  who: Admissions office
+  asks:
+    - How are foreign certificates evaluated for equivalence?
+    - Does the university support visa applications and what documents does it provide?
+    - Which programs can be followed online and which only on campus?
+  give:
+    - "Q|Written answer from the admissions office"
+
+- id: admissions-forms
+  category: admissions
+  title: Blank admission forms (index)
+  tier: static
+  prio: P1
+  who: Admissions office
+  asks:
+    - List each admission form and say what it is used for.
+  give:
+    - "D|Every blank admission form (PDF or DOCX), one file per form"
+
+- id: programs-overview
+  category: programs
+  title: Faculties and programs offered
+  tier: semester
+  prio: P0
+  who: Registrar or Deans
+  golden: [PRG-01]
+  asks:
+    - Which faculties exist and which programs does each offer at Bachelor, Masters and PhD level?
+    - What is the duration of each program?
+    - Which programs are newly introduced or not yet open for admission?
+  give:
+    - "D|Official list of programs per faculty, or the programs brochure (PDF)"
+    - "W|Program pages (collected automatically from the website)"
+
+- id: programs-faculties-departments
+  category: programs
+  title: Faculties and departments
+  tier: semester
+  prio: P1
+  who: Deans
+  asks:
+    - Which departments belong to each faculty?
+    - Who is the dean of each faculty and the head of each department?
+  give:
+    - "D|Organisation chart of faculties and departments"
+
+- id: programs-bachelor
+  category: programs
+  levels: [bachelor]
+  title: Bachelor programs, general rules
+  tier: semester
+  prio: P1
+  who: Registrar
+  asks:
+    - How many years and how many credits does a Bachelor degree require?
+    - In which language are the courses taught, and are they online, on campus or both?
+    - What degree title is awarded?
+  give:
+    - "D|Bachelor program regulations, if separate from the student handbook"
+
+- id: programs-masters
+  category: programs
+  levels: [masters]
+  title: Masters programs, general rules
+  tier: semester
+  prio: P1
+  who: Registrar or Dean of postgraduate studies
+  golden: [PRG-02, PRG-06]
+  asks:
+    - How long does the Masters program take and how many credits does it require?
+    - Which Masters programs are offered and under which faculty?
+    - What are the delivery modes and the language of instruction?
+  give:
+    - "D|Masters program regulations"
+
+- id: programs-phd
+  category: programs
+  levels: [phd]
+  title: PhD programs and research areas
+  tier: semester
+  prio: P1
+  who: Dean of research
+  golden: [PRG-03]
+  asks:
+    - Which research areas are available for PhD candidates?
+    - What is the normal duration and the maximum duration of the PhD?
+    - What coursework, if any, is required?
+  give:
+    - "D|PhD handbook"
+
+- id: programs-course-descriptions
+  category: programs
+  title: Course descriptions and syllabus outlines
+  tier: semester
+  prio: P1
+  who: Heads of department
+  golden: [PRG-05]
+  asks:
+    - Where can the syllabus of each course be found, and how is it structured?
+  give:
+    - "D|Syllabus or course outline for each program (PDF or DOCX), one file per program"
+
+- id: programs-graduation-requirements
+  category: programs
+  title: Graduation requirements
+  tier: semester
+  prio: P1
+  who: Registrar
+  golden: [PRG-07]
+  asks:
+    - How many credits and what minimum GPA are required to graduate at each level?
+    - Which additional requirements apply (final year project, internship, thesis, defense)?
+    - How are honours or classes of degree determined?
+  give:
+    - "D|Graduation requirements per program, if documented separately"
+
+- id: programs-masters-thesis
+  category: programs
+  levels: [masters]
+  title: Masters thesis guidelines, supervision and defense
+  tier: semester
+  prio: P1
+  who: Dean of postgraduate studies
+  golden: [PRG-08]
+  asks:
+    - How is the thesis topic chosen and approved, and who assigns the supervisor?
+    - What is the required structure and length of the thesis?
+    - What is the defense format and what are the deadlines?
+  give:
+    - "D|Thesis guidelines and thesis template"
+
+- id: programs-phd-process
+  category: programs
+  levels: [phd]
+  title: PhD proposal, supervision and viva process
+  tier: semester
+  prio: P2
+  who: Dean of research
+  asks:
+    - What are the milestones from admission to the final viva?
+    - What are the supervision rules and the expected publications?
+  give:
+    - "D|PhD process description"
+
+- id: programs-schedule-types
+  category: programs
+  title: Schedule types, delivery modes and language
+  tier: semester
+  prio: P1
+  who: Registrar
+  golden: [PRG-09]
+  asks:
+    - Are there day, evening or weekend classes, and for which programs?
+    - Which programs are delivered online, on campus or in blended mode?
+    - In which languages are programs taught?
+  give:
+    - "Q|Written answer from the registrar"
+
+- id: programs-curriculum
+  category: programs
+  kind: sheet
+  sheet: programs-curriculum
+  title: Curriculum per program, year and semester
+  tier: semester
+  prio: P1
+  who: Heads of department
+  golden: [PRG-04]
+  give:
+    - "S|Fill the curriculum sheet: one row per course with code, title, credits, type and prerequisites"
+
+- id: procedures-course-registration
+  category: procedures
+  title: Course registration
+  tier: semester
+  prio: P0
+  who: Registrar
+  golden: [PRC-01, PRC-02, PRC-03, VAR-01]
+  asks:
+    - Who must register and when does registration open and close each semester?
+    - What are the steps of course registration (on the ERP and at the office)?
+    - What is required before registering (fees paid, clearance, prerequisites)?
+    - What happens if a student misses the deadline, and is late registration possible?
+    - What is the maximum and minimum number of credits per semester?
+    - Which office handles the process, and how long does confirmation take?
+  give:
+    - "D|Registration form and registration notice for the current semester"
+    - "I|Photograph of any posted registration notice"
+
+- id: procedures-add-drop
+  category: procedures
+  title: Adding and dropping courses
+  tier: semester
+  prio: P1
+  who: Registrar
+  golden: [PRC-04]
+  asks:
+    - Until when can a student add or drop a course after registration?
+    - What is the procedure, the form and the fee, if any?
+    - What are the consequences of dropping a course?
+  give:
+    - "D|Add and drop form"
+
+- id: procedures-resits
+  category: procedures
+  title: Resit examinations
+  tier: semester
+  prio: P0
+  who: Registrar and Finance office
+  golden: [PRC-05, PRC-06, MHP-02]
+  asks:
+    - Who is eligible for a resit and for which courses?
+    - How does a student register for a resit and what is the deadline?
+    - What does a resit cost and how is it paid?
+    - What is the maximum grade or the grading rule for a resit?
+    - How many resit attempts are allowed?
+  give:
+    - "D|Resit registration form"
+    - "D|Resit notice for the current session"
+
+- id: procedures-fyp-application
+  category: procedures
+  levels: [bachelor]
+  title: Final year project application
+  tier: semester
+  prio: P1
+  who: Heads of department
+  golden: [PRC-10, MHP-04]
+  asks:
+    - Who is eligible to apply for the final year project and when?
+    - How is the topic proposed and approved, and who assigns supervisors?
+    - Where and by when is the proposal submitted?
+    - Which supervisors are available (see the department list)?
+  give:
+    - "D|Topic proposal template"
+    - "D|List of available supervisors and research areas"
+
+- id: procedures-fyp-defense
+  category: procedures
+  levels: [bachelor]
+  title: Final year project report and defense
+  tier: semester
+  prio: P1
+  who: Heads of department
+  golden: [PRC-11]
+  asks:
+    - What are the deadlines for the report and the defense?
+    - What is the required report structure and length?
+    - How is the defense organised and how is it graded?
+  give:
+    - "D|Final year project report template"
+    - "D|Defense evaluation grid"
+
+- id: procedures-transcript
+  category: procedures
+  title: Request for an official transcript
+  tier: semester
+  prio: P0
+  who: Registrar
+  golden: [PRC-08, PRC-09, MHP-01]
+  asks:
+    - Who may request a transcript and what documents or clearances are required?
+    - What are the steps of the request and which office handles it?
+    - What does a transcript cost and how is it paid?
+    - How long does it take, and how is it collected or delivered?
+  give:
+    - "D|Transcript request form"
+
+- id: procedures-internships
+  category: procedures
+  title: Internships
+  tier: semester
+  prio: P1
+  who: Internship coordinator
+  golden: [PRC-12, PRC-13]
+  asks:
+    - Is the internship compulsory and in which year or semester?
+    - How long is the internship and how is a placement obtained?
+    - Which partner companies are available?
+    - Which forms, logbook and report are required and how is the internship evaluated?
+  give:
+    - "D|Internship policy"
+    - "D|Internship logbook and report templates"
+    - "D|Internship evaluation form"
+    - "S|List of partner companies"
+
+- id: procedures-complaints
+  category: procedures
+  title: Complaints (grades and services)
+  tier: semester
+  prio: P1
+  who: Registrar and Student affairs
+  golden: [PRC-14, PRC-15]
+  asks:
+    - How does a student file a complaint about a grade and within what time?
+    - How does a student file a complaint about a service, and to whom?
+    - How are complaints processed and how long does a response take?
+  give:
+    - "D|Complaint form for grades and for services"
+
+- id: procedures-deferment
+  category: procedures
+  title: Deferment, withdrawal and change of program
+  tier: semester
+  prio: P1
+  who: Registrar
+  golden: [PRC-18]
+  asks:
+    - How does a student defer or withdraw from a semester, and by when?
+    - What are the financial consequences?
+    - How can a student change program?
+  give:
+    - "D|Deferment, withdrawal and change-of-program forms"
+
+- id: procedures-graduation
+  category: procedures
+  title: Graduation procedure
+  tier: semester
+  prio: P1
+  who: Registrar
+  asks:
+    - How does a student apply to graduate and by when?
+    - What clearances are required before graduation?
+    - When is the graduation ceremony and what does the student need to do?
+  give:
+    - "D|Graduation application form"
+
+- id: procedures-notices
+  category: procedures
+  title: Posted procedure notices (photographs)
+  tier: semester
+  prio: P2
+  who: Administration
+  asks:
+    - Describe each photographed notice and the process it concerns (see the attachment descriptions).
+  give:
+    - "I|Sharp photographs of every procedure notice posted on campus"
+
+- id: finance-fee-schedule
+  category: finance
+  title: Fee schedule per program and level
+  tier: semester
+  prio: P0
+  who: Finance office
+  golden: [FIN-01, FIN-02, FIN-03, MHP-02, MHP-03, VAR-02]
+  asks:
+    - What are the tuition fees for each Bachelor program per year or semester?
+    - What are the tuition fees for each Masters program?
+    - What are the tuition fees for the PhD program?
+    - What other charges exist (registration, examinations, resits, transcripts, ID card, library)?
+    - In which currency are fees stated, and are international rates different?
+  give:
+    - "D|Official fee schedule for the current academic year (PDF or XLSX)"
+
+- id: finance-installments
+  category: finance
+  title: Paying tuition in installments
+  tier: semester
+  prio: P0
+  who: Finance office
+  golden: [FIN-04, FIN-05, VAR-04]
+  asks:
+    - Can fees be paid in installments, and for which levels?
+    - How many installments are allowed, and what is the amount or percentage of each?
+    - What is the due date of each installment?
+    - What happens if an installment is missed?
+  give:
+    - "D|Installment plan notice or the policy page that states it"
+
+- id: finance-payment-channels
+  category: finance
+  title: Payment channels and proof of payment
+  tier: semester
+  prio: P0
+  who: Finance office
+  golden: [FIN-06, FIN-10]
+  asks:
+    - Which payment channels are accepted (bank, mobile money, cash) and with which account details?
+    - How does a student submit proof of payment and who confirms it?
+    - How and when is a receipt issued?
+  give:
+    - "I|Photograph of the official payment instructions posted at the finance office"
+    - "D|Official bank account notice"
+
+- id: finance-late-payment
+  category: finance
+  title: Late payment policy
+  tier: semester
+  prio: P1
+  who: Finance office
+  golden: [FIN-07]
+  asks:
+    - What are the penalties or consequences of late payment?
+    - Is a student blocked from classes, examinations or the ERP when fees are unpaid?
+  give:
+    - "Q|Written confirmation from the finance office"
+
+- id: finance-clearance
+  category: finance
+  title: Financial clearance
+  tier: semester
+  prio: P0
+  who: Finance office
+  golden: [FIN-08, MHP-01]
+  asks:
+    - What is financial clearance and when is it required?
+    - What are the steps to obtain it and which office issues it?
+    - Which form is used and how long does it take?
+  give:
+    - "D|Financial clearance form"
+
+- id: finance-refunds
+  category: finance
+  title: Refund policy
+  tier: static
+  prio: P1
+  who: Finance office
+  golden: [FIN-09]
+  asks:
+    - Is there a refund policy and under which conditions are refunds granted?
+    - How is a refund requested and how long does it take?
+  give:
+    - "D|Refund policy, if written"
+
+- id: finance-scholarships
+  category: finance
+  title: Scholarships and discounts
+  tier: semester
+  prio: P1
+  who: Administration or Finance office
+  golden: [ADM-08]
+  asks:
+    - Which scholarships or discounts exist and who qualifies?
+    - How does a student apply and what is the deadline?
+  give:
+    - "D|Scholarship and discount policy"
+
+- id: finance-fee-notices
+  category: finance
+  title: Current fee and deadline notices
+  tier: daily
+  prio: P2
+  who: Finance office
+  asks:
+    - What fee changes or payment deadlines have been announced recently?
+  give:
+    - "I|Photographs or PDFs of current finance notices"
+
+- id: erp-overview
+  category: erp
+  title: ERP system overview
+  tier: semester
+  prio: P0
+  who: ERP team
+  golden: [ERP-01]
+  asks:
+    - What is the ERP system and what can students do with it?
+    - What is the web address of the student ERP and which browsers or devices are supported?
+    - Which modules are available to students?
+  give:
+    - "D|ERP user manual and module list"
+
+- id: erp-first-login
+  category: erp
+  title: First login to the ERP
+  tier: semester
+  prio: P0
+  who: ERP team
+  golden: [ERP-02, VAR-06]
+  asks:
+    - What is the username and the initial password rule for a new student?
+    - What are the steps of the first login, including any forced password change?
+    - What should a student do if the first login fails?
+  give:
+    - "I|Screenshots of every step of the first login, in order (hide any real password)"
+
+- id: erp-password-reset
+  category: erp
+  title: Resetting a forgotten ERP password
+  tier: semester
+  prio: P0
+  who: ERP team
+  golden: [ERP-03, VAR-06]
+  asks:
+    - How does a student reset a forgotten password?
+    - Who must be contacted when the self-service reset does not work?
+  give:
+    - "I|Screenshots of the password reset flow, in order"
+
+- id: erp-course-registration
+  category: erp
+  title: Registering courses on the ERP
+  tier: semester
+  prio: P0
+  who: ERP team
+  golden: [ERP-04]
+  asks:
+    - What are the exact steps to register courses on the ERP?
+    - What errors can appear (fees unpaid, prerequisite missing) and what do they mean?
+  give:
+    - "I|Screenshots of every step of course registration, in order"
+
+- id: erp-results
+  category: erp
+  title: Viewing results on the ERP
+  tier: semester
+  prio: P1
+  who: ERP team
+  golden: [ERP-05]
+  asks:
+    - Where does a student see results and when are they published?
+    - How is a result query or complaint raised from the ERP?
+  give:
+    - "I|Screenshots of the results screens"
+
+- id: erp-fee-statement
+  category: erp
+  title: Viewing the fee statement on the ERP
+  tier: semester
+  prio: P1
+  who: ERP team
+  golden: [ERP-06]
+  asks:
+    - Where does a student view the fee statement and print a receipt?
+    - How is a payment discrepancy reported?
+  give:
+    - "I|Screenshots of the fee statement screens"
+
+- id: erp-timetable
+  category: erp
+  title: Viewing the timetable on the ERP
+  tier: semester
+  prio: P1
+  who: ERP team
+  asks:
+    - Where does a student see the class timetable on the ERP?
+  give:
+    - "I|Screenshots of the timetable screens"
+
+- id: erp-requests
+  category: erp
+  title: Submitting requests through the ERP
+  tier: semester
+  prio: P2
+  who: ERP team
+  asks:
+    - Which requests can be submitted on the ERP (transcript, clearance, complaints) and how?
+  give:
+    - "I|Screenshots of the request screens"
+
+- id: erp-support
+  category: erp
+  title: ERP support and known issues
+  tier: daily
+  prio: P1
+  who: ERP team
+  golden: [ERP-07]
+  asks:
+    - Whom should a student contact when the ERP does not work, and through which channel and hours?
+    - Which problems are known at the moment and what are the workarounds?
+  give:
+    - "Q|Official support contact (office email or number)"
+
+- id: erp-release-notes
+  category: erp
+  title: ERP release notes and changelog
+  tier: daily
+  prio: P2
+  who: ERP team
+  golden: [ERP-08]
+  asks:
+    - What changed in the most recent ERP update?
+  give:
+    - "D|Release notes or changelog"
+
+- id: erp-user-manual
+  category: erp
+  title: ERP user manual
+  tier: semester
+  prio: P1
+  who: ERP team
+  asks:
+    - Which manual or tutorial videos exist and where are they kept?
+  give:
+    - "D|ERP user manual (PDF or DOCX)"
+    - "D|Transcripts of any tutorial videos"
+
+- id: campus-location
+  category: campus
+  title: Location of the university
+  tier: static
+  prio: P0
+  who: Administration
+  golden: [CMP-01]
+  asks:
+    - What is the address, the neighbourhood and the GPS coordinates of the campus?
+    - What is the Google Maps link?
+    - Which landmarks help to find the building?
+  give:
+    - "I|Photograph of the entrance and the street frontage"
+
+- id: campus-directions
+  category: campus
+  title: How to reach the university
+  tier: static
+  prio: P1
+  who: Student affairs
+  golden: [CMP-02]
+  asks:
+    - How does a person arrive by taxi, by bus or on foot from the main parts of the city?
+    - What are the usual fares or travel times?
+  give:
+    - "Q|Directions written by a current student who commutes"
+
+- id: campus-floor-plans
+  category: campus
+  title: Floor plans
+  tier: static
+  prio: P1
+  who: Administration or facilities
+  asks:
+    - What is on each of the three floors and how are they connected (stairs, lift)?
+  give:
+    - "D|Floor plan of each floor, or a clear hand-drawn plan"
+    - "I|Photograph of the stairs and the signage on each floor"
+
+- id: campus-facilities
+  category: campus
+  title: Facilities, Wi-Fi, library and rules
+  tier: semester
+  prio: P1
+  who: Administration
+  golden: [CMP-07, CMP-08]
+  asks:
+    - What are the campus opening hours?
+    - What are the library hours and borrowing rules?
+    - How does a student connect to Wi-Fi and who gives access?
+    - Where and how can students print or photocopy?
+    - What security rules apply on campus?
+  give:
+    - "I|Photographs of the library, the computer labs and the canteen"
+
+- id: campus-room-directory
+  category: campus
+  kind: sheet
+  sheet: campus-room-directory
+  title: Room directory
+  tier: static
+  prio: P1
+  who: Administration
+  golden: [CMP-03, CMP-06]
+  give:
+    - "S|Fill the room directory sheet: room, floor, purpose, nearest landmark, directions"
+    - "I|Photograph of each room door and signage"
+
+- id: campus-office-directory
+  category: campus
+  kind: sheet
+  sheet: campus-office-directory
+  title: Office directory
+  tier: semester
+  prio: P0
+  who: Administration
+  golden: [CMP-04, CMP-05, CMP-09, VAR-03]
+  give:
+    - "S|Fill the office directory sheet: office, floor, room, services, opening hours"
+    - "I|Photograph of each office door and signage"
+
+- id: transport-overview
+  category: transport
+  title: University bus service
+  tier: semester
+  prio: P1
+  who: Transport coordinator
+  golden: [TRN-01]
+  asks:
+    - Is there a school bus service and who is it for?
+    - How does a student subscribe and who is the contact?
+    - How are holiday or exceptional changes announced?
+  give:
+    - "I|Photograph of the bus poster"
+
+- id: transport-fares
+  category: transport
+  title: Bus fares and subscription
+  tier: semester
+  prio: P1
+  who: Transport coordinator
+  golden: [TRN-03]
+  asks:
+    - How much does the bus cost per trip, month or semester?
+    - How and where is the fare paid and what proof is issued?
+  give:
+    - "Q|Written confirmation of the fares"
+
+- id: transport-schedule
+  category: transport
+  kind: sheet
+  sheet: transport-schedule
+  title: Bus routes and pick-up times
+  tier: daily
+  prio: P1
+  who: Transport coordinator
+  golden: [TRN-02]
+  give:
+    - "S|Fill the transport sheet: route, stop, pick-up time, direction, days"
+    - "I|Photograph of the route poster"
+
+- id: canteen-hours
+  category: canteen
+  title: Canteen opening hours
+  tier: semester
+  prio: P1
+  who: Canteen manager
+  golden: [CAN-02, VAR-05]
+  asks:
+    - At what times does the canteen open and close on each day?
+    - Is it closed on weekends or holidays?
+    - Whom should a student contact about the canteen?
+  give:
+    - "I|Photograph of the canteen sign with the hours"
+
+- id: canteen-payment
+  category: canteen
+  title: Canteen payment methods
+  tier: semester
+  prio: P2
+  who: Canteen manager
+  golden: [CAN-04]
+  asks:
+    - Which payment methods does the canteen accept (cash, mobile money, other)?
+  give:
+    - "Q|Written confirmation from the canteen manager"
+
+- id: canteen-menu
+  category: canteen
+  kind: sheet
+  sheet: canteen-menu
+  title: Canteen menu and prices
+  tier: realtime
+  prio: P1
+  who: Canteen manager
+  golden: [CAN-01, CAN-03]
+  give:
+    - "S|Fill the canteen sheet: day, meal, item, price"
+    - "I|Photograph of the menu board, once a week"
+
+- id: timetables-publication
+  category: timetables
+  title: Where timetables are published and who maintains them
+  tier: semester
+  prio: P1
+  who: Timetable officer
+  asks:
+    - Where are class timetables published (ERP, notice board, other)?
+    - Who maintains them and how are rescheduling and cancellations announced?
+  give:
+    - "Q|Name of the office or role that maintains the timetable"
+
+- id: timetables-classes
+  category: timetables
+  title: Combined course timetable
+  tier: daily
+  prio: P0
+  who: Timetable officer
+  golden: [TTB-01, TTB-02]
+  asks:
+    - Which semester and academic year does the timetable cover?
+    - Which programs, years and groups are included?
+    - What are the lecture hours and the room naming convention?
+  give:
+    - "D|Combined course timetable (PDF). After intake, check the extracted text under content/timetables/_extracted/ and correct any garbled table rows"
+
+- id: timetables-exams
+  category: timetables
+  kind: sheet
+  sheet: timetables-exams
+  title: Examination and resit timetables
+  tier: daily
+  prio: P0
+  who: Timetable officer
+  golden: [TTB-03, PRC-07]
+  give:
+    - "S|Fill the exam timetable sheet, using the column Exam Type for exam or resit"
+    - "D|Official examination timetable notice (PDF)"
+
+- id: people-office-responsibilities
+  category: people
+  title: Which office handles which question
+  tier: semester
+  prio: P1
+  who: Administration
+  golden: [PPL-03]
+  asks:
+    - Which office handles admissions, registration, finance, transcripts, ERP, student affairs and complaints?
+    - What is the first point of contact for each type of question?
+  give:
+    - "Q|List confirmed by the administration"
+
+- id: people-org-chart
+  category: people
+  title: Organisational chart
+  tier: semester
+  prio: P2
+  who: Administration
+  asks:
+    - How is the university organised (rector, deans, registrar, heads of department)?
+  give:
+    - "D|Official organisational chart"
+
+- id: people-staff-directory
+  category: people
+  kind: sheet
+  sheet: people-staff-directory
+  title: Staff and administration directory
+  tier: semester
+  prio: P1
+  who: Administration
+  golden: [PPL-05, PPL-06]
+  give:
+    - "S|Fill the staff sheet. Use official email addresses only"
+
+- id: people-heads-of-department
+  category: people
+  kind: sheet
+  sheet: people-heads-of-department
+  title: Heads of department
+  tier: semester
+  prio: P1
+  who: Administration
+  golden: [PPL-02]
+  give:
+    - "S|Fill the heads-of-department sheet"
+
+- id: people-delegates
+  category: people
+  kind: sheet
+  sheet: people-delegates
+  title: Class delegates
+  tier: semester
+  prio: P1
+  who: Student affairs or class delegates
+  golden: [PPL-01]
+  give:
+    - "S|Fill the delegates sheet: names only, no personal contact without the person's consent"
+
+- id: people-course-lecturers
+  covered_by: [people-course-lecturers-files]
+  category: people
+  kind: sheet
+  sheet: people-course-lecturers
+  title: Lecturers per course
+  tier: semester
+  prio: P1
+  who: Heads of department
+  golden: [TTB-05]
+  give:
+    - "S|Fill the course-lecturer sheet"
+
+- id: student-life-clubs
+  category: student-life
+  kind: sheet
+  sheet: student-life-clubs
+  title: Clubs and societies
+  tier: semester
+  prio: P1
+  who: Student affairs
+  golden: [STL-01]
+  give:
+    - "S|Fill the clubs sheet: club, purpose, leader role, meeting time, how to join"
+    - "I|Club logos"
+
+- id: student-life-start-club
+  category: student-life
+  title: How to start a new club
+  tier: static
+  prio: P2
+  who: Student affairs
+  golden: [STL-06]
+  asks:
+    - What are the steps and conditions to create a new club?
+    - Which office approves a new club?
+  give:
+    - "D|Club creation form or rules, if written"
+
+- id: student-life-sug
+  category: student-life
+  title: Student Union Government
+  tier: semester
+  prio: P1
+  who: Student Union Government
+  golden: [STL-02, STL-03]
+  asks:
+    - What is the Student Union Government and what is its mandate?
+    - How is it structured and who are the current executives (names and roles)?
+    - How can students reach it (office, official channel)?
+  give:
+    - "D|Student Union constitution"
+    - "I|Photograph of the executive list posted on campus"
+
+- id: student-life-sug-elections
+  category: student-life
+  title: Student Union elections
+  tier: semester
+  prio: P2
+  who: Student Union Government
+  golden: [STL-04]
+  asks:
+    - When is the next Student Union election and how does it proceed?
+    - Who may stand and who may vote?
+  give:
+    - "D|Election calendar or rules"
+
+- id: student-life-sports
+  category: student-life
+  title: Sports and other activities
+  tier: semester
+  prio: P2
+  who: Student affairs
+  asks:
+    - Which sports and recreational activities exist, and when and where do they take place?
+  give:
+    - "Q|List confirmed by student affairs"
+
+- id: student-life-events
+  category: student-life
+  kind: sheet
+  sheet: student-life-events
+  title: Events calendar
+  tier: daily
+  prio: P2
+  who: Student affairs
+  golden: [STL-05]
+  give:
+    - "S|Fill the events sheet: date, event, time, venue"
+    - "I|Event posters"
+
+- id: announcements-channels
+  category: announcements
+  title: Official announcement channels
+  tier: semester
+  prio: P2
+  who: Communications
+  asks:
+    - Where do official announcements appear (ERP, notice boards, WhatsApp, email, social media)?
+  give:
+    - "Q|List of official channels"
+
+- id: announcements-current
+  category: announcements
+  kind: sheet
+  sheet: announcements-current
+  title: Current announcements
+  tier: realtime
+  prio: P0
+  who: Communications or Registrar
+  golden: [ANN-01, TTB-04]
+  give:
+    - "S|Fill the announcements sheet whenever a notice is issued; remove or date-limit old rows"
+    - "I|Poster images of current notices"

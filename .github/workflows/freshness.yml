@@ -1,0 +1,33 @@
+name: freshness
+
+on:
+  schedule:
+    - cron: "30 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+      - name: Collect stale documents
+        run: |
+          if [ -n "$DATABASE_URL" ]; then
+            ictkb freshness --db --json > stale.json
+          else
+            ictkb freshness --json > stale.json
+          fi
+      - name: Open or update one issue per stale document
+        run: python scripts/open_stale_issues.py stale.json

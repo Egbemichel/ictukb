@@ -1,0 +1,51 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      KB_ENV: production
+      EMBEDDING_PROVIDER: cohere
+      COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+      - run: ictkb validate
+      - name: Migrate and index verified public content
+        run: |
+          ictkb migrate
+          ictkb index
+
+  worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml && python scripts/build_worker_data.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Deploy the Cloudflare Worker
+        working-directory: cloudflare-worker
+        run: |
+          npm ci
+          npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,0 +1,42 @@
+name: ingest-live
+
+# GitHub schedules can be delayed by several minutes. For immediate updates, call the
+# authenticated endpoint POST /v1/admin/sync/sheet/{name} from the sheet itself (scripts/apps_script_webhook.gs).
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Sheet name to sync (empty syncs every realtime sheet)
+        required: false
+
+concurrency:
+  group: ingest
+  cancel-in-progress: false
+
+jobs:
+  sheets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      KB_ENV: production
+      EMBEDDING_PROVIDER: cohere
+      COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+      - name: Sync
+        env:
+          SHEET_NAME: ${{ github.event.inputs.name }}
+        run: |
+          if [ -n "$SHEET_NAME" ]; then
+            ictkb sync-sheets --name "$SHEET_NAME"
+          else
+            ictkb sync-sheets --tier realtime
+          fi
