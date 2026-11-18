@@ -1,0 +1,20 @@
+# People who contributed to the ICT University knowledge base.
+# Add your own entry in the same pull request as your work. CONTRIBUTORS.md is built from this file.
+# Fields: name (as on your student card), matricule, github (your GitHub login, optional for now),
+# contribution (one short sentence), since (version in which you first contributed).
+contributors:
+  - name: EGBE MICHEL TAMBE
+    matricule: ICTU20233746
+    github: Egbemichel
+    contribution: Project lead; system design, pipeline, API, deployment and documentation.
+    since: "1.0"
+  - name: NDONWIE NELLY TANWIE
+    matricule: ICTU20233987
+    github: ""
+    contribution: Worked on the first version of the knowledge base.
+    since: "1.0"
+  - name: AJA CHELLA ASAMBA Jr
+    matricule: ICTU20233787
+    github: ""
+    contribution: Worked on the first version of the knowledge base.
+    since: "1.0"

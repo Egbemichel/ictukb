@@ -12,3 +12,4 @@ Which documents or files does this pull request add or change?
 - [ ] Every attachment has a human-written description.
 - [ ] No `[[TO FILL]]` placeholder remains in documents set to `status: verified`.
 - [ ] `ictkb validate` passes locally.
+- [ ] I added or updated my entry in `contributors.yml` (name, matricule, GitHub login) and ran `python scripts/build_contributors.py`.

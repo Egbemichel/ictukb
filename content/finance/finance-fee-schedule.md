@@ -7,7 +7,7 @@ program_level:
 - all
 department: null
 language: en
-source_type: interview
+source_type: official_doc
 source_url: null
 attachments: []
 academic_year: null
@@ -22,8 +22,8 @@ owner: Egbemichel
 collected_by: Egbemichel
 collected_on: '2026-11-18'
 confirmed_in_writing: false
-conflict_note: Tuition and student union amounts come from the project team and are
-  not yet confirmed by an official fee notice. The full schedule per program is published
+conflict_note: Tuition (XAF 365,000) and the student union fee (XAF 2,000) were confirmed
+  as official by the project team. The full schedule per program and level is published
   in the university announcements and has not been collected.
 tags: []
 related: []
@@ -31,7 +31,7 @@ related: []
 
 ## How much is the tuition?
 
-The complete tuition stated by the project team is XAF 365,000 (Central African francs). The programme and level it applies to are not specified in the information collected so far; fees may differ between Bachelor, Masters and PhD programs.
+The complete tuition is XAF 365,000 (Central African francs). The programme and level it applies to are not specified in the information collected so far; fees may differ between Bachelor, Masters and PhD programs.
 
 ## Is there a student union fee?
 

@@ -187,6 +187,23 @@ def convert(src: Path, out: Path, font: str, size: float) -> None:
             i += 1
             continue
 
+        mi = re.match(r"^!\[(.*?)\]\((.+?)\)$", stripped)
+        if mi:
+            flush()
+            path = (src.parent / mi.group(2)).resolve()
+            if path.exists():
+                p = doc.add_paragraph()
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p.paragraph_format.keep_with_next = True
+                p.add_run().add_picture(str(path), width=Cm(15.5))
+                if mi.group(1):
+                    cap = body_paragraph(mi.group(1), align="center", spacing=1.0)
+                    for run in cap.runs:
+                        run.italic = True
+                        run.font.size = Pt(size - 1.5)
+            i += 1
+            continue
+
         if stripped == "---":
             flush()
             if front and title_done:

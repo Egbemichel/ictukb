@@ -3,7 +3,7 @@
 ## Principles
 
 1. The repository is public and Git history is permanent. Commit official contact details only (office emails and office numbers). Never commit personal phone numbers or private email addresses of delegates, staff or club leaders unless that person has agreed in writing. Never commit secrets. `ictkb validate` rejects email addresses outside the official domains, and CI scans for credentials.
-2. No sensitive data is stored. There are no audience tags: every document is available to every chatbot. Do not add personal records (grades, balances, identity numbers).
+2. No sensitive data is stored. There are no audience tags: every document is available to every chatbot. Do not add personal records (grades, balances, identity numbers). The one exception is `contributors.yml`, where each contributor enters their own name and matricule with their consent.
 3. Reads are open to everyone, but they require an API key. Keys exist for rate limiting and to disable a misbehaving chatbot, not for secrecy. Writes happen only through the pipeline with administrator credentials.
 4. The office or the official document wins. If the website and an office disagree, use the office's information and record the disagreement in `conflict_note`.
 
@@ -12,8 +12,9 @@
 1. Create a branch. Direct pushes to `main` are blocked.
 2. Add or edit documents in `content/<category>/`, or place collected files in `incoming/<category>/` and run `ictkb intake`.
 3. Run `ictkb validate`. It checks the schema, file names, categories, placeholders, email domains and attachment references.
-4. Open a pull request using the template. At least one code owner of the category must approve, and every check must pass.
-5. When a pull request changes `content/`, CI indexes it into a throwaway staging index and runs the golden questions.
+4. Add yourself to `contributors.yml` (name, matricule, GitHub login, one sentence) and run `python scripts/build_contributors.py`. CI rejects a pull request whose author is not listed.
+5. Open a pull request using the template. At least one code owner of the category must approve, and every check must pass.
+6. When a pull request changes `content/`, CI indexes it into a throwaway staging index and runs the golden questions.
 
 ## Writing a document
 

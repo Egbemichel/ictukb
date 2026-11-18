@@ -7,7 +7,7 @@ program_level:
 - all
 department: null
 language: en
-source_type: interview
+source_type: official_doc
 source_url: null
 attachments: []
 academic_year: null
@@ -22,10 +22,10 @@ owner: Egbemichel
 collected_by: Egbemichel
 collected_on: '2026-11-18'
 confirmed_in_writing: false
-conflict_note: The 50, 30 and 20 percent split and the amounts come from the project
-  team; the first installment (50 percent) and the second installment window (20-30
-  November 2026) are confirmed by Bursar notices. Confirm the split and the third
-  installment date against the official fee notice.
+conflict_note: The 50, 30 and 20 percent split of the XAF 365,000 tuition was confirmed
+  as official by the project team; the first installment and the second installment
+  window (20-30 November 2026) are also stated in Bursar notices. The date of the
+  third installment has not been published.
 tags: []
 related:
 - finance-late-payment

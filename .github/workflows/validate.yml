@@ -33,6 +33,8 @@ jobs:
         run: ictkb validate
         env:
           EMBEDDING_PROVIDER: hash
+      - name: Contributors list
+        run: python scripts/build_contributors.py --check ${{ github.event_name == 'pull_request' && format('--author {0}', github.event.pull_request.user.login) || '' }}
       - name: Secret and personal data scan
         run: python scripts/scan_secrets.py
       - name: Tests
