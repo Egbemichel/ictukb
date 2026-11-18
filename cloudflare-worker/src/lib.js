@@ -58,19 +58,16 @@ async function retryFetch(url, init, attempts = 4) {
   throw last;
 }
 
-export async function embed(env, texts, inputType) {
+export const EMBED_MODEL = '@cf/baai/bge-m3';
+export const EMBED_NAME = `cloudflare:${EMBED_MODEL}`;
+
+// Multilingual 1024-dimension embeddings from Workers AI (no monthly call limit; the daily free allowance is ample).
+export async function embed(env, texts) {
   const out = [];
-  for (let i = 0; i < texts.length; i += 96) {
-    const response = await retryFetch('https://api.cohere.com/v2/embed', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${env.COHERE_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: env.EMBEDDING_MODEL ?? 'embed-multilingual-v3.0', texts: texts.slice(i, i + 96),
-        input_type: inputType, embedding_types: ['float'],
-      }),
-    });
-    if (!response.ok) throw new Error(`Embedding service error ${response.status}`);
-    out.push(...(await response.json()).embeddings.float);
+  for (let i = 0; i < texts.length; i += 50) {
+    const result = await env.AI.run(EMBED_MODEL, { text: texts.slice(i, i + 50) });
+    if (!result?.data || result.data.length !== texts.slice(i, i + 50).length) throw new Error('Embedding service returned an unexpected result');
+    out.push(...result.data);
   }
   return out;
 }

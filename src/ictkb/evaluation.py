@@ -50,8 +50,11 @@ class Outcome:
     returned: list[str] = field(default_factory=list)
 
 
-def evaluate(conn: psycopg.Connection, embedder: Embedder, questions: list[dict], k: int = 5) -> dict:
+def evaluate(conn: psycopg.Connection, embedder: Embedder | None, questions: list[dict], k: int = 5,
+             search_fn=None) -> dict:
     ids = indexed_ids(conn)
+    if search_fn is not None:
+        conn.close()  # the deployed API is slow; do not hold an idle database connection
     outcomes: list[Outcome] = []
     for q in questions:
         expected = q.get("expected_docs") or []
@@ -62,12 +65,17 @@ def evaluate(conn: psycopg.Connection, embedder: Embedder, questions: list[dict]
             covered = all(_present(e, ids) for e in expected)
         else:
             covered = any(_present(e, ids) for e in expected)
-        result = search(conn, embedder, q["question"], top_k=k)
-        returned = [r["document"]["id"] for r in result.results]
-        o = Outcome(q["id"], q["priority"], q["type"], covered, confidence=result.confidence,
-                    returned=returned, top_similarity=max((r["similarity"] for r in result.results), default=0.0))
+        if search_fn is not None:
+            payload = search_fn(q["question"])  # the deployed API: {"confidence": ..., "results": [...]}
+            confidence, results = payload["confidence"], payload["results"]
+        else:
+            outcome = search(conn, embedder, q["question"], top_k=k)
+            confidence, results = outcome.confidence, outcome.results
+        returned = [r["document"]["id"] for r in results]
+        o = Outcome(q["id"], q["priority"], q["type"], covered, confidence=confidence,
+                    returned=returned, top_similarity=max((r["similarity"] for r in results), default=0.0))
         if is_neg:
-            o.hit = result.confidence in ("low", "none")
+            o.hit = confidence in ("low", "none")
         elif covered:
             if q["type"] == "multi-hop":
                 o.hit = all(any(matches(e, d) for d in returned) for e in expected if _present(e, ids))
@@ -96,6 +104,7 @@ def evaluate(conn: psycopg.Connection, embedder: Embedder, questions: list[dict]
         "hit_at_k_p0": rate(p0),
         "mrr": sum(o.rr for o in covered) / len(covered) if covered else None,
         "no_answer_correct": rate(neg),
+        "answered_high": (sum(1 for o in covered if o.hit and o.confidence == "high") / len([o for o in covered if o.hit])) if any(o.hit for o in covered) else None,
         "p0_covered": len(p0),
         "p0_total": sum(1 for o in positives if o.priority == "P0"),
         "k": k,
@@ -130,6 +139,7 @@ def markdown_report(result: dict) -> str:
         f"| hit@{s['k']} on covered questions | {pct(s['hit_at_k'])} (target {TARGET_OVERALL:.0%}) |",
         f"| hit@{s['k']} on covered P0 questions | {pct(s['hit_at_k_p0'])} (target {TARGET_P0:.0%}), {s['p0_covered']} of {s['p0_total']} P0 covered |",
         f"| Mean reciprocal rank | {pct(s['mrr'])} |",
+        f"| Retrieved correctly and answered with high confidence | {pct(s['answered_high'])} |",
         f"| No-answer correctness | {pct(s['no_answer_correct'])} |",
         f"| Lowest top similarity among answered questions | {s['min_top_similarity_answerable']} |",
         f"| Highest top similarity among no-answer questions | {s['max_top_similarity_no_answer']} |",

@@ -66,6 +66,37 @@ class CohereEmbedder(Embedder):
         return self._call([text], "search_query")[0]
 
 
+class WorkerEmbedder(Embedder):
+    """Embeddings computed by the Cloudflare Worker (Workers AI, model bge-m3, 1024 dimensions).
+
+    The same model embeds the queries of the deployed API, so documents indexed from any machine or from
+    GitHub Actions stay comparable with live queries. It needs the Worker address and its admin token.
+    """
+
+    name = "cloudflare:@cf/baai/bge-m3"
+    BATCH = 50
+
+    def __init__(self, url: str, admin_token: str) -> None:
+        if not admin_token:
+            raise RuntimeError("ADMIN_TOKEN is not set")
+        self.url = url.rstrip("/") + "/v1/admin/embed"
+        self.headers = {"X-Admin-Token": admin_token}
+
+    def _call(self, texts: list[str]) -> list[list[float]]:
+        response = with_retries(lambda: httpx.post(self.url, json={"texts": texts}, headers=self.headers, timeout=120))
+        response.raise_for_status()
+        return response.json()["embeddings"]
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        out: list[list[float]] = []
+        for i in range(0, len(texts), self.BATCH):
+            out.extend(self._call(texts[i:i + self.BATCH]))
+        return out
+
+    def embed_query(self, text: str) -> list[float]:
+        return self._call([text])[0]
+
+
 class FastEmbedEmbedder(Embedder):
     """Local multilingual-e5-large through ONNX (no API key; about 2 GB download)."""
 
@@ -116,7 +147,9 @@ def get_embedder() -> Embedder:
         return _cached
     s = get_settings()
     provider = s.embedding_provider.lower()
-    if provider == "cohere":
+    if provider == "worker":
+        _cached = WorkerEmbedder(s.kb_worker_url, s.admin_token)
+    elif provider == "cohere":
         _cached = CohereEmbedder(s.cohere_api_key, s.embedding_model or "embed-multilingual-v3.0")
     elif provider == "fastembed":
         _cached = FastEmbedEmbedder(s.embedding_model or "intfloat/multilingual-e5-large")

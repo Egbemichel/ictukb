@@ -24,16 +24,17 @@ jobs:
     env:
       DATABASE_URL: postgresql://ictkb:ictkb@localhost:5432/ictkb
       KB_ENV: staging
-      EMBEDDING_PROVIDER: cohere
-      COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+      EMBEDDING_PROVIDER: worker
+      KB_WORKER_URL: https://ictkb-api.ictkb-api-worker.workers.dev
+      ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Check that embeddings are available
         id: gate
         run: |
-          if [ -z "$COHERE_API_KEY" ]; then
+          if [ -z "$ADMIN_TOKEN" ]; then
             echo "run=false" >> "$GITHUB_OUTPUT"
-            echo "COHERE_API_KEY is not available to this run (for example a fork); evaluation skipped."
+            echo "ADMIN_TOKEN is not available to this run (for example a fork); evaluation skipped."
           else
             echo "run=true" >> "$GITHUB_OUTPUT"
           fi

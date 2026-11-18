@@ -15,7 +15,8 @@ class Settings(BaseSettings):
     kb_env: str = "production"  # production | staging
     kb_root: Path = Path(".")
 
-    embedding_provider: str = "cohere"  # cohere | fastembed | hash
+    embedding_provider: str = "worker"  # worker | cohere | fastembed | hash
+    kb_worker_url: str = "https://ictkb-api.ictkb-api-worker.workers.dev"
     embedding_model: str = ""  # empty selects the provider default
     embedding_dim: int = 1024
     cohere_api_key: str = ""

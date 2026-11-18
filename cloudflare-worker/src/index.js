@@ -1,7 +1,7 @@
 // ICT University knowledge base API on a free Cloudflare Worker (reads Neon over HTTP).
 import data from './data.json' with { type: 'json' };
 import {
-  OFFICIAL_DOMAINS, buildTsQuery, chunkPost, db, deliveryUrl, detectLanguage, embed, isStale, safeEqual, sha256Hex, slugify,
+  EMBED_NAME, OFFICIAL_DOMAINS, buildTsQuery, chunkPost, db, deliveryUrl, detectLanguage, embed, isStale, safeEqual, sha256Hex, slugify,
   transaction, transcribe, vecLiteral,
 } from './lib.js';
 
@@ -21,6 +21,7 @@ class HttpError extends Error {
   }
 }
 
+const searchCache = new Map(); // identical questions within five minutes reuse the answer check
 const keyCache = new Map(); // key hash -> { until, caller }
 const hits = new Map(); // caller ident -> timestamps (per isolate; approximate)
 
@@ -89,7 +90,10 @@ async function search(env, query, input) {
   if (q.length < 2 || q.length > 1000) throw new HttpError(422, 'query must be 2 to 1000 characters');
   const topK = Math.min(20, Math.max(1, Number(input.top_k ?? 5) || 5));
   const f = input.filters ?? {};
-  const [embedding] = await embed(env, [q], 'search_query');
+  const cacheKey = JSON.stringify([q.toLowerCase(), topK, input.filters ?? null, input.verify !== false]);
+  const cached = searchCache.get(cacheKey);
+  if (cached && cached.until > Date.now()) return cached.value;
+  const [embedding] = await embed(env, [q]);
   const params = [vecLiteral(embedding), buildTsQuery(q), statuses(env), topK];
   const clauses = ['d.status = ANY($3::text[])', '(d.valid_until IS NULL OR d.valid_until >= current_date)'];
   if (f.category) { params.push(String(f.category)); clauses.push(`d.category = $${params.length}`); }
@@ -115,7 +119,7 @@ async function search(env, query, input) {
     FROM fused f JOIN chunks c ON c.id = f.id JOIN documents d ON d.id = c.document_id
     ORDER BY f.score DESC, similarity DESC LIMIT $4`;
   const rows = await query(sql, params);
-  if (!rows.length) return { confidence: 'none', results: [] };
+  if (!rows.length) return { confidence: 'none', verification: 'none', results: [] };
   const results = rows.map((r) => ({
     chunk_id: Number(r.chunk_id), text: r.content, heading_path: r.heading_path, score: r.score, similarity: r.similarity,
     document: {
@@ -126,7 +130,53 @@ async function search(env, query, input) {
     },
   }));
   const best = Math.max(...results.map((r) => r.similarity));
-  return { confidence: best >= Number(env.MIN_SIMILARITY ?? 0.35) ? 'high' : 'low', results };
+  const verdict = await verifyAnswer(env, q, best, results, input.verify !== false);
+  const value = { confidence: verdict.confidence, verification: verdict.method, results };
+  if (searchCache.size > 300) searchCache.clear();
+  searchCache.set(cacheKey, { until: Date.now() + 300000, value });
+  return value;
+}
+
+// Decides whether the retrieved passages actually answer the question. A very strong match is accepted and a very
+// weak one is rejected without a model call; in between, a small language model answers YES or NO.
+const STRONG_MATCH = 0.70;
+const WEAK_MATCH = 0.45;
+const DEFAULT_VERIFIER = '@cf/meta/llama-3.1-8b-instruct-fp8';
+
+async function verifyAnswer(env, question, best, results, allowed) {
+  const similarityOnly = { confidence: best >= Number(env.MIN_SIMILARITY ?? 0.4) ? 'high' : 'low', method: 'similarity' };
+  if (!allowed || !env.AI || String(env.VERIFY_ENABLED ?? 'true') !== 'true') return similarityOnly;
+  if (best >= STRONG_MATCH) return { confidence: 'high', method: 'strong-match' };
+  if (best < WEAK_MATCH) return { confidence: 'low', method: 'weak-match' };
+  try {
+    const answer = await Promise.race([
+      gradeWith(env, env.VERIFY_MODEL ?? DEFAULT_VERIFIER, question, results.slice(0, 3).map((r) => r.text)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('verifier timeout')), 8000)),
+    ]);
+    return { confidence: /^\s*YES/i.test(answer) ? 'high' : 'low', method: 'model' };
+  } catch {
+    return { ...similarityOnly, method: 'fallback' };
+  }
+}
+
+// ---------------------------------------------------------------- answer check
+const GRADER_RULES = 'You check whether retrieved passages contain the answer to a question about ICT University. '
+  + 'The question may be in English or French. Reply with exactly one word: YES or NO. '
+  + 'Reply YES only if the passages state the specific information the question asks for. '
+  + 'Reply NO if the passages are only about a related topic, if the question asks for personal or private data '
+  + '(a person\'s balance, grades, private phone numbers), asks for something unrelated to the university (weather, news), '
+  + 'or asks to predict a future result.';
+
+async function gradeWith(env, model, question, passages) {
+  const context = passages.map((p, i) => `Passage ${i + 1}:\n${p.slice(0, 900)}`).join('\n\n');
+  const result = await env.AI.run(model, {
+    messages: [
+      { role: 'system', content: GRADER_RULES },
+      { role: 'user', content: `${context}\n\nQuestion: ${question}\n\nDo the passages contain the answer? Reply YES or NO.` },
+    ],
+    max_tokens: 4, temperature: 0,
+  });
+  return String(result.response ?? result.choices?.[0]?.message?.content ?? '').trim();
 }
 
 // ---------------------------------------------------------------- documents and metadata
@@ -185,9 +235,9 @@ async function postNote(env, query, input) {
   }
   const chunks = chunkPost(title, `## ${title}\n\n${text}`.split('\n\n').slice(1).join('\n\n') || text);
   const [model] = await query("SELECT value FROM kb_meta WHERE key = 'embedding_model'");
-  const expected = `cohere:${env.EMBEDDING_MODEL ?? 'embed-multilingual-v3.0'}`;
+  const expected = EMBED_NAME;
   if (model && model.value !== expected) throw new HttpError(409, `The index uses ${model.value}; reindex before posting`);
-  const vectors = await embed(env, chunks.map((c) => c.content), 'search_document');
+  const vectors = await embed(env, chunks.map((c) => c.content));
   const hash = await sha256Hex(title + chunks.map((c) => c.content).join('\u001e'));
   const maxAge = Math.max(1, Math.round((Date.parse(until) - Date.parse(on)) / 86400000) + 1);
   const statements = [
@@ -252,6 +302,12 @@ async function route(request, env, ctx) {
         : ['INSERT INTO wa_state (key, value, updated_at) VALUES ($1, $2, now()) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()', [key, String(value)]]));
       if (statements.length) await transaction(env, statements);
       return json({ stored: statements.length }, 200, env);
+    }
+    if (path === '/v1/admin/embed' && method === 'POST') {
+      const b = await body(request);
+      const texts = Array.isArray(b.texts) ? b.texts.map((x) => String(x).slice(0, 6000)) : [];
+      if (!texts.length || texts.length > 100) throw new HttpError(422, 'Send between 1 and 100 texts');
+      return json({ model: EMBED_NAME, embeddings: await embed(env, texts) }, 200, env);
     }
     if (path === '/v1/admin/keys' && method === 'POST') {
       const b = await body(request);
