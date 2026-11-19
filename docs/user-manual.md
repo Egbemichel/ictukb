@@ -50,7 +50,7 @@ It does not write answers. Your program (the chatbot) takes the returned passage
 
 Every endpoint except `/v1/health` requires an API key sent in the header `X-API-Key`.
 
-**Requesting a key.** Open an issue titled "API key request" in the project repository, `https://github.com/Egbemichel/ictukb/issues`, giving your name, your class and what you are building. A maintainer creates a key for you and sends it privately. The key is shown only once, so store it immediately. A key identifies your chatbot, allows 60 requests per minute and can be switched off by the maintainers if it is misused. It protects the service from overload; it is not a secret between you and the university, but you should still keep it private.
+**Requesting a key.** Contact a project maintainer directly (private message or in class), giving your name, your class and what you are building. A maintainer sends you a key privately. Do not request a key, and never paste a key, in a public issue of the repository, because everything written there is public and permanent. The key is shown only once, so store it immediately. A key identifies your chatbot, allows 30 requests per minute and can be switched off by the maintainers if it is misused. It protects the service from overload; it is not a secret between you and the university, but you should still keep it private.
 
 **Keep the key out of public code.** Never commit it to a public repository and never place it in the JavaScript of a web page. Store it in an environment variable (see the examples below) or in your hosting provider's secret settings.
 
@@ -458,7 +458,7 @@ curl -X POST https://ictkb-api.ictkb-api-worker.workers.dev/v1/feedback \
 
 ## 7. Limits, errors and good practice
 
-**Limits.** 60 requests per minute per key. A request over the limit receives status 429 and a `Retry-After` header. Questions are 2 to 1000 characters. `top_k` is at most 20; 3 to 5 passages are enough for a chatbot. A search normally answers in about one second; when the model check is needed it can take a few seconds. Identical questions repeated within five minutes are answered instantly from a cache.
+**Limits.** 30 requests per minute per key. A request over the limit receives status 429 and a `Retry-After` header. Questions are 2 to 1000 characters. `top_k` is at most 20; 3 to 5 passages are enough for a chatbot. A search normally answers in about one second; when the model check is needed it can take a few seconds. Identical questions repeated within five minutes are answered instantly from a cache.
 
 **Errors.** Errors return a JSON body such as `{"detail": "Invalid or revoked API key"}`.
 
@@ -492,10 +492,10 @@ curl -X POST https://ictkb-api.ictkb-api-worker.workers.dev/v1/feedback \
 | An answer is missing details that the office knows | The data has a gap | Send feedback with verdict `missing`; the maintainers add it. |
 | The answer is out of date | The document was not re-checked | Look at `last_verified`; send feedback with verdict `outdated`. |
 | Slow first request | The service wakes up or the model check runs | Normal; later identical questions are instant. Set a client timeout of 60 seconds. |
-| `429` errors while testing | More than 60 requests in a minute | Slow down, or cache answers. |
+| `429` errors while testing | More than 30 requests in a minute | Slow down, or cache answers. |
 | French question returns English text | Most documents are written in English | Expected. Instruct your model to reply in the student's language. |
 
-If a problem persists, open an issue in the repository with the question you asked, the `confidence` and `verification` values returned, and the time.
+If a problem persists, contact a maintainer with the question you asked, the `confidence` and `verification` values returned, and the time. For a bug that contains no key, you may also open an issue in the repository.
 
 ## 9. Reference: every endpoint, field and value
 
@@ -546,10 +546,10 @@ Create a key:
 ```bash
 curl -X POST https://ictkb-api.ictkb-api-worker.workers.dev/v1/admin/keys \
   -H "X-Admin-Token: $ADMIN_TOKEN" -H "Content-Type: application/json" \
-  -d '{"owner": "student name or project", "rate_limit_per_min": 60}'
+  -d '{"owner": "student name or project", "rate_limit_per_min": 30}'
 ```
 
-The response contains `id` and `api_key`; send the key to the student privately. Only a hash is stored, so a lost key cannot be recovered and must be replaced.
+The response contains `id` and `api_key`; send the key to the student privately. Only a hash is stored, so a lost key cannot be recovered and must be replaced. Record each key you issue (to whom, when) in a private spreadsheet, and never publish it.
 
 Revoke a key:
 

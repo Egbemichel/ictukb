@@ -227,7 +227,7 @@ def convert(src: Path, out: Path, font: str, size: float) -> None:
             else:
                 heading = doc.add_heading(level=max(1, level - 1))
                 add_inline(heading, text, font, doc.styles[f"Heading {max(1, level - 1)}"].font.size.pt, bold=True)
-                if level == 2 and re.match(r"(Chapter \d|References|Appendix)", text) and not front:
+                if level == 2 and re.match(r"(Chapter \d|Chapitre \d|References|Références|Appendix|Annexe)", text) and not front:
                     heading.paragraph_format.page_break_before = True
             i += 1
             continue

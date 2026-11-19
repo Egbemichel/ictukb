@@ -473,7 +473,7 @@ From the maintainers' network, a search normally answered in 0.7 to 1.5 seconds.
 
 ### 6.6 How the system runs
 
-The interface, database, scheduled jobs and WhatsApp reader are deployed. The deploy job succeeded at each change after the secrets were set, including a re-indexing step. The live job and the daily job (including a crawl of the website from the automation runner) also succeeded. The reader reconnected from its stored session on a host with no local files, found the four configured groups and reported that it was connected. At the time of writing, no group message had yet arrived after deployment. We tested the full path of a live post with simulated messages against the real interface and database, but not yet with a real administrator message.
+The interface, database, scheduled jobs and WhatsApp reader are deployed. The deploy job succeeded at each change after the secrets were set, including a re-indexing step. The live job and the daily job (including a crawl of the website from the automation runner) also succeeded. The reader reconnected from its stored session on a host with no local files, found the four configured groups and reported that it was connected. On 18 November 2026 at 11:57 local time, the reader received a real announcement from an official group (an information notice about the new schedule of the e-Agriculture entrance examination) together with its image. The text of the image was read and stored with an expiry date, and a search through the interface found it with high confidence. This is the first proof that the whole path works with a real message: group, image reading, database and interface.
 
 ### 6.7 Discussion
 
