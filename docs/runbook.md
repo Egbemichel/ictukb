@@ -6,9 +6,9 @@
 |---|---|
 | 1 | Create the GitHub repository and push this project. Run `scripts/protect_main.sh OWNER/REPO` after replacing the placeholders in `.github/CODEOWNERS`. |
 | 2 | `neon init` and `neon deploy` link the repository to the Neon project and write DATABASE_URL (pooled) and the object storage variables to `.env.local`, which the tools read before `.env`. Create a Neon project. Enable the `vector` extension (the first migration does it). Copy the pooled connection string. Create a second branch for staging if desired. |
-| 3 | Create a Cohere account and an API key (or set `EMBEDDING_PROVIDER=fastembed` for a local model). |
+| 3 | Deploy the Cloudflare Worker (see [deployment.md](deployment.md)) and set its `ADMIN_TOKEN`; the default `EMBEDDING_PROVIDER=worker` embeds through it. Set `EMBEDDING_PROVIDER=fastembed` for a local model instead. |
 | 4 | Create a Cloudinary account and copy the cloud name, API key and API secret. |
-| 5 | Add the repository secrets: `DATABASE_URL`, `COHERE_API_KEY`, and optionally `DEPLOY_HOOK_URL`. |
+| 5 | Add the repository secrets: `DATABASE_URL`, `ADMIN_TOKEN`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and optionally `DEPLOY_HOOK_URL`. |
 | 6 | Run `ictkb migrate` once with the production `DATABASE_URL`. |
 | 7 | Run `ictkb scaffold` if the stubs are missing, then start collection. |
 | 8 | Deploy the API image (see [deployment.md](deployment.md)). |

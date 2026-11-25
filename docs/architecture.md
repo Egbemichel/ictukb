@@ -39,7 +39,7 @@ Each response carries `confidence`: `high` when the best chunk has cosine simila
 
 ## 5. Embeddings
 
-The schema fixes 1024 dimensions. The default is Cohere `embed-multilingual-v3.0`, which handles English and French. `fastembed` runs `multilingual-e5-large` locally without an API key. The `hash` provider exists for automated tests only. The model name is stored in `kb_meta`; the indexer refuses to mix models and `ictkb reindex` re-embeds every chunk after a change.
+The schema fixes 1024 dimensions. The default provider is `worker`: Cloudflare Workers AI `@cf/baai/bge-m3`, reached through the deployed Worker with the admin token, which handles English and French and also embeds the live API's queries. `cohere` (`embed-multilingual-v3.0`) remains available. `fastembed` runs `multilingual-e5-large` locally without an API key; its vectors are not comparable with bge-m3, so a fastembed index is a separate local index. The `hash` provider exists for automated tests only. The model name is stored in `kb_meta`; the indexer refuses to mix models and `ictkb reindex` re-embeds every chunk after a change.
 
 ## 6. Chunking
 
