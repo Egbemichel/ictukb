@@ -31,8 +31,8 @@ The design is described in [docs/architecture.md](docs/architecture.md) and the 
 ```bash
 python -m venv .venv
 source .venv/bin/activate            # on Windows: .venv\Scripts\activate
-pip install -e ".[dev]"
-cp .env.example .env                 # then edit the values
+pip install -e ".[dev,local-embeddings]"
+cp .env.example .env                 # then edit the values (see below)
 docker compose -f docker/docker-compose.yml up -d db
 ictkb migrate
 ictkb validate
@@ -40,6 +40,12 @@ ictkb index                          # indexes verified content (and drafts when
 ictkb crawl                          # reads the university website
 uvicorn ictkb.api.main:app --reload
 ```
+
+The default `EMBEDDING_PROVIDER=worker` embeds through the deployed Worker and needs the maintainer's `ADMIN_TOKEN`.
+Contributors without it set `EMBEDDING_PROVIDER=fastembed` in `.env`: `multilingual-e5-large` then runs locally
+(about 2.2 GB, downloaded once). Set `export FASTEMBED_CACHE_PATH=$HOME/.cache/fastembed`, otherwise the model is cached
+in `/tmp` and downloaded again after a reboot. A fastembed index is a separate local index: its vectors are not comparable
+with the shared bge-m3 index, and `MIN_SIMILARITY` has to be calibrated for it with `python eval/run_eval.py`.
 
 Commands: `ictkb --help` lists `validate`, `migrate`, `index`, `crawl`, `sync-sheets`, `intake`, `reindex`, `freshness`, `keys`, `scaffold` and `search`.
 
