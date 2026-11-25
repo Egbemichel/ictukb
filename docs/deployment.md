@@ -1,6 +1,6 @@
 # Deployment
 
-The public API runs on a free Cloudflare Worker (`cloudflare-worker/`). It reads the Neon database over HTTP, embeds queries with Cohere, and serves the same endpoints as the Python API (see [api.md](api.md)). Indexing (website crawl, sheets, content, private documents) stays in the Python pipeline, run from a maintainer's machine or from GitHub Actions.
+The public API runs on a free Cloudflare Worker (`cloudflare-worker/`). It reads the Neon database over HTTP, embeds queries with Workers AI (`@cf/baai/bge-m3`), and serves the same endpoints as the Python API (see [api.md](api.md)). Indexing (website crawl, sheets, content, private documents) stays in the Python pipeline, run from a maintainer's machine or from GitHub Actions.
 
 ```
 students' chatbots --> Cloudflare Worker (free) --> Neon (Postgres + pgvector)
@@ -14,7 +14,7 @@ Live address: `https://ictkb-api.ictkb-api-worker.workers.dev`
 
 Cloudflare Workers cannot run the Python server (it needs a native Postgres driver). Cloudflare Containers can, but they require the paid Workers plan. The Worker is a JavaScript implementation of the read endpoints and of the post endpoints used by the WhatsApp listener. The Python API (`ictkb.api.main`) remains in the repository for self-hosting (`docker/Dockerfile.api`) and as the reference implementation; both share the same database.
 
-Free plan limits to keep in mind: 100,000 requests per day, 10 ms of CPU per request (the waiting time for the database and Cohere does not count). The in-memory rate limiter is per Worker instance, so the effective limit is approximate; add a Cloudflare rate limiting rule for hard limits.
+Free plan limits to keep in mind: 100,000 requests per day, 10 ms of CPU per request (the waiting time for the database and the AI models does not count). The in-memory rate limiter is per Worker instance, so the effective limit is approximate; add a Cloudflare rate limiting rule for hard limits.
 
 ## Deploy or update
 
@@ -24,7 +24,7 @@ npm install
 npx wrangler login                       # once; authorise in the browser
 python ../scripts/build_worker_data.py   # regenerates src/data.json from schema/categories.yml
 npx wrangler secret put DATABASE_URL     # Neon connection string, without quotes
-npx wrangler secret put COHERE_API_KEY
+npx wrangler secret put COHERE_API_KEY   # used to transcribe menu images posted by the WhatsApp listener
 npx wrangler secret put ADMIN_TOKEN      # long random string
 npx wrangler deploy
 ```
@@ -35,7 +35,7 @@ Local test: put the same three values in `cloudflare-worker/.dev.vars` (git-igno
 
 ## Automatic deployment
 
-`.github/workflows/deploy.yml` deploys the Worker on every push to `main` and re-indexes the public content. Required repository secrets: `CLOUDFLARE_API_TOKEN` (template "Edit Cloudflare Workers"), `CLOUDFLARE_ACCOUNT_ID`, `DATABASE_URL`, `COHERE_API_KEY`. The Worker's own secrets are stored in Cloudflare and are not touched by the workflow.
+`.github/workflows/deploy.yml` deploys the Worker on every push to `main` and re-indexes the public content. Required repository secrets: `CLOUDFLARE_API_TOKEN` (template "Edit Cloudflare Workers"), `CLOUDFLARE_ACCOUNT_ID`, `DATABASE_URL`, `ADMIN_TOKEN` (indexing embeds through the Worker). The Worker's own secrets are stored in Cloudflare and are not touched by the workflow.
 
 ## API keys
 
@@ -68,4 +68,4 @@ The listener keeps a WhatsApp connection open, so it cannot run on a Worker. Its
 
 ## Enabling the scheduled workflows
 
-The scheduled and deployment workflows (`ingest-daily`, `ingest-live`, `deploy`) are switched off until the repository variable `ENABLE_AUTOMATION` is set to `true` (Settings, Secrets and variables, Actions, Variables). Add the secrets `DATABASE_URL`, `COHERE_API_KEY`, `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` first. The `validate` workflow and the daily `freshness` workflow run without them.
+The scheduled and deployment workflows (`ingest-daily`, `ingest-live`, `deploy`) are switched off until the repository variable `ENABLE_AUTOMATION` is set to `true` (Settings, Secrets and variables, Actions, Variables). Add the secrets `DATABASE_URL`, `ADMIN_TOKEN`, `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` first. The `validate` workflow and the daily `freshness` workflow run without them.
