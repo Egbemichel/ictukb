@@ -18,3 +18,8 @@ contributors:
     github: ""
     contribution: Worked on the first version of the knowledge base.
     since: "1.0"
+  - name: Dejon Fah Joel Xavier
+    matricule: ICTU20241127
+    github: Joel-Fah
+    contribution: Local-first setup and documentation fixes (embedding providers, offline indexing).
+    since: "1.1"
